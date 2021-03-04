@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>{{ data.title }} · SIMUPF</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap dataTables -->
+    <link href="{{ url_for('static', filename='/dataTables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='dashboard.css') }}" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">UPF-PFK Palembang</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="{{ url_for('user.logout') }}">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.dashboard') }}">
+              <span data-feather="skip-back"></span>
+              Kembali 
+              <!-- <span class="sr-only">(current)</span> -->
+            </a>
+          </li>
+        </ul>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>User Management</span>
+        </h6>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user.reg') }}">
+              <span data-feather="database"></span>
+              User Registration
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+  </div>
+</div>
+      <script src="{{ url_for('static', filename='jquery-3.5.1.slim.min.js') }}"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+      <script src="{{ url_for('static', filename='/dist/js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='feather.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+      <script src="{{ url_for('static', filename='/dataTables/jquery.dataTables.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='/dataTables/dataTables.bootstrap4.min.js') }}"></script>
+      <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+      </script>
+
+  </body>
+</html>

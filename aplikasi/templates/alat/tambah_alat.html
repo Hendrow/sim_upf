@@ -1,0 +1,131 @@
+{% extends 'alat/base_alat.html' %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">{{ data.header }}</h1>
+    </div>
+  
+    <form method="POST" novalidate>
+      {{ form.hidden_tag() }}
+
+      <div class="form-group row">
+        {{ form.nmAlat.label(class="col-sm-2 col-form-label") }}
+        {% if form.nmAlat.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.nmAlat(class="form-control") }}                                        
+            {% for error in form.nmAlat.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.nmAlat(class="form-control", placeholder='Nama alat') }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.merk.label(class="col-sm-2 col-form-label") }}
+        {% if form.merk.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.merk(class="form-control") }}                                        
+            {% for error in form.merk.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.merk(class="form-control", placeholder='Merk alat') }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.tipe.label(class="col-sm-2 col-form-label") }}
+        {% if form.tipe.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.tipe(class="form-control") }}                                        
+            {% for error in form.tipe.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.tipe(class="form-control", placeholder='Tipe alat') }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.noSeri.label(class="col-sm-2 col-form-label") }}
+        {% if form.noSeri.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.noSeri(class="form-control") }}                                        
+            {% for error in form.noSeri.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.noSeri(class="form-control", placeholder='No seri') }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.aksesoris.label(class="col-sm-2 col-form-label") }}
+        {% if form.aksesoris.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.aksesoris(class="form-control") }}                                        
+            {% for error in form.aksesoris.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.aksesoris(class="form-control", placeholder='Aksesoris') }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.thPengadaan.label(class="col-sm-2 col-form-label") }}
+        {% if form.thPengadaan.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.thPengadaan(class="form-control") }}                                        
+            {% for error in form.thPengadaan.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.thPengadaan(class="form-control", placeholder='contoh: 2011') }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.ket.label(class="col-sm-2 col-form-label") }}
+        {% if form.ket.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.ket(class="form-control") }}                                        
+            {% for error in form.ket.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.ket(class="form-control", placeholder='Keterangan') }}
+        </div>
+        {% endif %}
+      </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            {{ form.simpan(class="btn btn-primary") }}
+          </div>
+        </div>
+      </form>
+</main>
+{% endblock %}

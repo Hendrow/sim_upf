@@ -1,0 +1,158 @@
+{% extends 'fasyankes/base.html' %}
+
+{% block content %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">{{ data.header }}</h1>
+    </div>
+  
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}      
+            {% for category,message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" novalidate>
+      {{ form.hidden_tag() }}
+
+      <div class="form-group row">
+        {{ form.nama.label(class="col-sm-2 col-form-label") }}
+        {% if form.nama.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.nama(class="form-control") }}                                        
+            {% for error in form.nama.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.nama(class="form-control") }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.status.label(class="col-sm-2 col-form-label") }}
+        {% if form.status.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.status(class="form-control") }}                                        
+            {% for error in form.status.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.status(class="form-control")}}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.alamat.label(class="col-sm-2 col-form-label") }}
+        {% if form.alamat.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.alamat(class="form-control") }}                                        
+            {% for error in form.alamat.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.alamat(class="form-control") }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.kota.label(class="col-sm-2 col-form-label") }}
+        {% if form.kota.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.kota(class="form-control") }}                                        
+            {% for error in form.kota.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.kota(class="form-control") }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.provinsi.label(class="col-sm-2 col-form-label") }}
+        {% if form.provinsi.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.provinsi(class="form-control") }}                                        
+            {% for error in form.provinsi.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.provinsi(class="form-control") }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.email.label(class="col-sm-2 col-form-label") }}
+        {% if form.email.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.email(class="form-control") }}                                        
+            {% for error in form.email.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.email(class="form-control") }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.telepon.label(class="col-sm-2 col-form-label") }}
+        {% if form.telepon.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.telepon(class="form-control") }}                                        
+            {% for error in form.telepon.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.telepon(class="form-control") }}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group row">
+        {{ form.fax.label(class="col-sm-2 col-form-label") }}
+        {% if form.fax.errors %}
+          <div class="col-sm-10 has-error">
+            {{ form.fax(class="form-control") }}                                        
+            {% for error in form.fax.errors  %}
+                <span class="control-label">{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+        <div class="col-sm-10">
+          {{ form.fax(class="form-control") }}
+        </div>
+        {% endif %}
+      </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            {{ form.update(class="btn btn-primary") }}
+          </div>
+        </div>
+      </form>
+</main>
+{% endblock %}

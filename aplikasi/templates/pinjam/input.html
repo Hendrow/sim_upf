@@ -1,0 +1,106 @@
+{% extends 'pinjam/base.html' %}
+
+{% block content %}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ data.header }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+    </div>
+    </div>
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="form-group row">
+          <!-- {{ form.fasyankes.label(class="col-sm-2 col-form-label") }} -->
+          <label for="" class="col-sm-2 col-form-label">Fasyankes Tujuan</label>
+          {% if form.fasyankes.errors %}
+            <div class="col-sm-10 has-error">
+              {{ form.fasyankes(class="form-control") }}                                        
+              {% for error in form.fasyankes.errors  %}
+                  <span class="control-label">{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+          <div class="col-sm-10">
+            {{ form.fasyankes(class="form-control") }}
+          </div>
+          {% endif %}
+      </div>
+      
+        <div class="form-group row">
+            {{ form.peminjam.label(class="col-sm-2 col-form-label") }}
+            {% if form.peminjam.errors %}
+              <div class="col-sm-10 has-error">
+                {{ form.peminjam(class="form-control") }}                                        
+                {% for error in form.peminjam.errors  %}
+                    <span class="control-label">{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+            <div class="col-sm-10">
+              {{ form.peminjam(class="form-control", placeholder='Peminjam') }}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group row">
+          {{ form.petugas.label(class="col-sm-2 col-form-label") }}
+          {% if form.petugas.errors %}
+            <div class="col-sm-10 has-error">
+              {{ form.petugas(class="form-control") }}                                        
+              {% for error in form.petugas.errors  %}
+                  <span class="control-label">{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+          <div class="col-sm-10">
+            {{ form.petugas(class="form-control", placeholder='Petugas pencatat') }}
+          </div>
+          {% endif %}
+      </div>
+
+        <div class="form-group row">
+            {{ form.tanggal.label(class="col-sm-2 col-form-label") }}
+            {% if form.tanggal.errors %}
+              <div class="col-sm-10 has-error">
+                {{ form.tanggal(class="form-control") }}                                        
+                {% for error in form.tanggal.errors  %}
+                    <span class="control-label">{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+            <div class="col-sm-10">
+              {{ form.tanggal(class="form-control") }}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group row">
+            {{ form.kordinatorTim.label(class="col-sm-2 col-form-label") }}
+            {% if form.kordinatorTim.errors %}
+              <div class="col-sm-10 has-error">
+                {{ form.kordinatorTim(class="form-control") }}                                        
+                {% for error in form.kordinatorTim.errors  %}
+                    <span class="control-label">{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+            <div class="col-sm-10">
+              {{ form.kordinatorTim(class="form-control", placeholder="Kordinator Tim") }}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-sm-10">
+              {{ form.simpan(class="btn btn-primary") }}
+            </div>
+          </div>
+    </form>
+</main>
+{% endblock %}
