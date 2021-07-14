@@ -35,11 +35,11 @@ def logout():
     return redirect(url_for('user.login'))
 
 
-@mod.route('/register', methods=['GET','POST'])
+@mod.route('/user/add_new', methods=['GET','POST'])
 def reg():
     data = {
-        'title':'Register',
-        'header':'Register new user'
+        'title':'Add user',
+        'header':'Add user'
     }
 
     form = Register()

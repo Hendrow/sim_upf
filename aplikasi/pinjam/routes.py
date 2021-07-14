@@ -57,7 +57,7 @@ def daftar(id):
     if 'username' in session:
         data = {
             'title': 'Daftar peminjaman',
-            'header' : 'Input Daftar Peminjaman'
+            'header' : 'Daftar Peminjaman'
         }
         return render_template('pinjam/daftar_pinjam.html', data=data)
     return redirect(url_for('user.login'))
