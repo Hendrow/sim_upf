@@ -1,18 +1,18 @@
-from flask import Blueprint, render_template, redirect, url_for, session
+from flask import Blueprint, render_template, redirect, url_for, session, flash
 from aplikasi import db
-from aplikasi.models import Pinjam, Fasyankes
+from aplikasi.models import Pinjam, Fasyankes, Loguser
 from .forms import Input
 
 mod = Blueprint('pinjam',__name__, template_folder='templates')
 
 
-@mod.route('/pinjam')
+@mod.route('/pinjam', methods=['GET','POST'])
 def index():
     if 'username' in session:
         data = {
             'title': 'Peminjaman alat',
             'header' : 'Peminjaman alat',
-            'pinjam': Pinjam.query.all()
+            'pinjam': Pinjam.query.filter_by(status='input').all()
         }
         return render_template('pinjam/index.html', data=data)
     
@@ -40,7 +40,8 @@ def input():
             # return "{}".format(fasyankes)
 
             if peminjam != petugas:
-                p = Pinjam(peminjam=peminjam, petugas=petugas, tanggal=tanggal, kordinatorTim= kordinator_tim, fasyankes=fasyankes, status='null')
+                # status input untuk proses input belum selesai, submit untuk proses yang sudah selesai
+                p = Pinjam(peminjam=peminjam, petugas=petugas, tanggal=tanggal, kordinatorTim= kordinator_tim, fasyankes=fasyankes, status='input')
                 db.session.add(p)
                 db.session.commit()
 
@@ -60,6 +61,22 @@ def daftar(id):
             'header' : 'Daftar Peminjaman'
         }
         return render_template('pinjam/daftar_pinjam.html', data=data)
+    return redirect(url_for('user.login'))
+
+@mod.route('/pinjam/<int:id>/hapus', methods=['GET','POST'])
+def hapus(id):
+    if 'username' in session:
+        p = Pinjam.query.get_or_404(id)
+        if p:
+            db.session.delete(p)
+            aksi = "Del pinjam id:" +str(p.id)
+            log = Loguser(username=session['username'], aksi = aksi)
+            db.session.add(log)
+
+            db.session.commit()
+            flash("1 data sudah dihapus..", "warning")
+            return redirect(url_for('pinjam.index'))
+
     return redirect(url_for('user.login'))
 
 

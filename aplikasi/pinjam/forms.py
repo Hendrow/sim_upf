@@ -11,10 +11,11 @@ def pilih_fasyankes():
 
 class Input(FlaskForm):
     petugas = SelectField('Petugas Pencatat',
-        choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika')])
+        choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika'),('Demtania','Demtania'),('Robiyansyah','Robiyansyah'),('Elvira','Elvira')])
     peminjam =  SelectField('Peminjam Alat',
-        choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika')])    
+        choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika'),('Demtania','Demtania'),('Robiyansyah','Robiyansyah'),('Elvira','Elvira')])    
     tanggal = DateField('Tanggal peminjaman', validators=[DataRequired()])
-    kordinatorTim = StringField("Kordinator tim", validators=[DataRequired()])
+    kordinatorTim = SelectField('Kordinator Tim',
+        choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika'),('Demtania','Demtania'),('Robiyansyah','Robiyansyah'),('Elvira','Elvira')])
     fasyankes = QuerySelectField(query_factory=pilih_fasyankes, allow_blank=True, get_label='nama')
     simpan = SubmitField('Lanjut')

@@ -47,11 +47,11 @@
           <td>{{ d.kordinatorTim }} </td>          
           <td>{{ d.tanggal.strftime("%d-%m-%Y") }} </td>
           <th>{{ d.status }}</th>
-          <td><a href="" title="Edit"><span data-feather="edit"></span></a> | <a href="" data-toggle="modal" data-target="#hapus" title="Hapus"><span data-feather="trash-2"></span></a></td>
+          <td><a href="" title="Edit"><span data-feather="edit"></span></a> | <a href="" data-toggle="modal" data-target="#hapus{{ d.id }}" title="Hapus"><span data-feather="trash-2"></span></a></td>
         </tr>
 
         <!-- Modal Konfirmasi Hapus-->
-        <div class="modal fade" id="hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="hapus{{ d.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -61,10 +61,10 @@
                 </button>
               </div>
               <div class="modal-body">
-                Menghapus } ?
+                Menghapus {{ d.peminjam }} ?
               </div>
               <div class="modal-footer">
-                <form action="" method="post">
+                <form action="{{ url_for('pinjam.hapus',id=d.id) }}" method="post">
                   <button type="submit" class="btn btn-primary">Iya</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                 </form>                 
