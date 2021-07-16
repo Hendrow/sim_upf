@@ -10,12 +10,24 @@ mod = Blueprint('pinjam',__name__, template_folder='templates')
 def index():
     if 'username' in session:
         data = {
-            'title': 'Peminjaman alat',
-            'header' : 'Peminjaman alat',
-            'pinjam': Pinjam.query.filter_by(status='input').all()
+            'title': 'Daftar Peminjaman',
+            'header' : 'Daftar Peminjaman',
+            'pinjam': Pinjam.query.filter_by(status='submit').all()
         }
         return render_template('pinjam/index.html', data=data)
     
+    return redirect(url_for('user.login'))
+
+@mod.route('/pinjam/draf', methods=['GET','POST'])
+def draf():
+    if 'username' in session:
+        data = {
+            'title':'Draf Peminjaman',
+            'header':'Draf peminjaman',
+            'pinjam': Pinjam.query.filter_by(status='input').all()
+        }
+        return render_template('pinjam/draf_pinjam.html', data=data)
+
     return redirect(url_for('user.login'))
 
 

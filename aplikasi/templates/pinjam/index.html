@@ -33,7 +33,6 @@
           <th>Nama Petugas</th>
           <th>Kordinator TIM</th>          
           <th>Tanggal</th>
-          <th>Status</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -46,7 +45,6 @@
           <td>{{ d.petugas }}</td>
           <td>{{ d.kordinatorTim }} </td>          
           <td>{{ d.tanggal.strftime("%d-%m-%Y") }} </td>
-          <th>{{ d.status }}</th>
           <td><a href="" title="Edit"><span data-feather="edit"></span></a> | <a href="" data-toggle="modal" data-target="#hapus{{ d.id }}" title="Hapus"><span data-feather="trash-2"></span></a></td>
         </tr>
 
