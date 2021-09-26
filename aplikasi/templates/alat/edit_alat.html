@@ -10,17 +10,17 @@
       {{ form.hidden_tag() }}
 
       <div class="form-group row">
-        {{ form.nmAlat.label(class="col-sm-2 col-form-label") }}
-        {% if form.nmAlat.errors %}
+        {{ form.nm_alat.label(class="col-sm-2 col-form-label") }}
+        {% if form.nm_alat.errors %}
           <div class="col-sm-10 has-error">
-            {{ form.nmAlat(class="form-control") }}                                        
-            {% for error in form.nmAlat.errors  %}
+            {{ form.nm_alat(class="form-control") }}                                        
+            {% for error in form.nm_alat.errors  %}
                 <span class="control-label">{{ error }}</span>
             {% endfor %}
           </div>
         {% else %}
         <div class="col-sm-10">
-          {{ form.nmAlat(class="form-control")}}
+          {{ form.nm_alat(class="form-control")}}
         </div>
         {% endif %}
       </div>
@@ -58,17 +58,17 @@
       </div>
 
       <div class="form-group row">
-        {{ form.noSeri.label(class="col-sm-2 col-form-label") }}
-        {% if form.noSeri.errors %}
+        {{ form.no_seri.label(class="col-sm-2 col-form-label") }}
+        {% if form.no_seri.errors %}
           <div class="col-sm-10 has-error">
-            {{ form.noSeri(class="form-control") }}                                        
-            {% for error in form.noSeri.errors  %}
+            {{ form.no_seri(class="form-control") }}                                        
+            {% for error in form.no_seri.errors  %}
                 <span class="control-label">{{ error }}</span>
             {% endfor %}
           </div>
         {% else %}
         <div class="col-sm-10">
-          {{ form.noSeri(class="form-control") }}
+          {{ form.no_seri(class="form-control") }}
         </div>
         {% endif %}
       </div>
@@ -90,17 +90,17 @@
       </div>
 
       <div class="form-group row">
-        {{ form.thPengadaan.label(class="col-sm-2 col-form-label") }}
-        {% if form.thPengadaan.errors %}
+        {{ form.th_pengadaan.label(class="col-sm-2 col-form-label") }}
+        {% if form.th_pengadaan.errors %}
           <div class="col-sm-10 has-error">
-            {{ form.thPengadaan(class="form-control") }}                                        
-            {% for error in form.thPengadaan.errors  %}
+            {{ form.th_pengadaan(class="form-control") }}                                        
+            {% for error in form.th_pengadaan.errors  %}
                 <span class="control-label">{{ error }}</span>
             {% endfor %}
           </div>
         {% else %}
         <div class="col-sm-10">
-          {{ form.thPengadaan(class="form-control") }}
+          {{ form.th_pengadaan(class="form-control") }}
         </div>
         {% endif %}
       </div>

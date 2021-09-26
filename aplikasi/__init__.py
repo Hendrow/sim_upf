@@ -14,16 +14,16 @@ migrate = Migrate(app, db, render_as_batch=True)
 from aplikasi import models
 
 from aplikasi.main.routes import mod
-app.register_blueprint(main.routes.mod)
+app.register_blueprint(mod)
 
 from aplikasi.user.routes import mod
-app.register_blueprint(user.routes.mod)
+app.register_blueprint(mod)
 
 from aplikasi.alat.routes import mod
-app.register_blueprint(alat.routes.mod)
+app.register_blueprint(mod)
 
 from aplikasi.fasyankes.routes import mod
-app.register_blueprint(fasyankes.routes.mod)
+app.register_blueprint(mod)
 
 from aplikasi.pinjam.routes import mod
-app.register_blueprint(pinjam.routes.mod)
+app.register_blueprint(mod)

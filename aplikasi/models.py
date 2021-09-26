@@ -3,16 +3,18 @@ from aplikasi import db
 
 
 class Alat(db.Model):
+    __tablename__ = 'alat'
+
     id = db.Column(db.Integer, primary_key=True)
-    nmAlat = db.Column(db.String(100), nullable=False)
+    nm_alat = db.Column(db.String(100), nullable=False)
     merk = db.Column(db.String(30), nullable=False)
     tipe = db.Column(db.String(30), nullable=False)
-    noSeri = db.Column(db.String(25), nullable=False, unique=True)
+    no_seri = db.Column(db.String(25), nullable=False, unique=True)
     aksesoris = db.Column(db.String(100))
-    thPengadaan = db.Column(db.Integer)
+    th_pengadaan = db.Column(db.Integer)
     ket = db.Column(db.String(15))
     kalibrasi = db.relationship('Logkalibrasi', backref='kalibrasi', lazy=True)
-    logAlat = db.relationship('Logalat', backref='logalat', lazy=True)
+    log_alat = db.relationship('Logalat', backref='logalat', lazy=True)
 
     def __repr__(self):
         return "Nama alat : {}".format(self.nmAlat)
@@ -20,10 +22,10 @@ class Alat(db.Model):
 
 class Logkalibrasi(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    tempatKalibrasi = db.Column(db.String(55), nullable = False)
-    tglKalibrasi = db.Column(db.DateTime)
+    tempat_kalibrasi = db.Column(db.String(55), nullable = False)
+    tgl_kalibrasi = db.Column(db.DateTime)
     hasil = db.Column(db.String(25))
-    alatId = db.Column(db.Integer, db.ForeignKey('alat.id'))
+    alat_id = db.Column(db.Integer, db.ForeignKey('alat.id'))
 
     def __repr__(self):
         return "Tempat : {}, Tanggal : {}".format(self.tempatKalibrasi, self.tglKalibrasi)

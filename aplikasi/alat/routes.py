@@ -30,18 +30,18 @@ def add():
 
         form = Input()
         if form.validate_on_submit():
-            nmAlat = form.nmAlat.data
+            nm_alat = form.nm_alat.data
             merk = form.merk.data
             tipe = form.tipe.data
-            noSeri = form.noSeri.data
+            no_seri = form.no_seri.data
             aksesoris = form.aksesoris.data
-            thPengadaan = form.thPengadaan.data
+            th_pengadaan = form.th_pengadaan.data
             ket = form.ket.data
 
-            m_alat = Alat(nmAlat=nmAlat, merk=merk, tipe=tipe, noSeri=noSeri, aksesoris=aksesoris, thPengadaan=thPengadaan, ket=ket)
+            m_alat = Alat(nm_alat=nm_alat, merk=merk, tipe=tipe, no_seri=no_seri, aksesoris=aksesoris, th_pengadaan=th_pengadaan, ket=ket)
             db.session.add(m_alat)
 
-            aksi = "add alat:"+nmAlat
+            aksi = f"tambah alat: {nm_alat}"
             log = Loguser(username=session['username'], aksi=aksi)
             db.session.add(log)
             db.session.commit()
@@ -66,28 +66,28 @@ def edit(id):
         if alat:
             form = Edit()
             if form.validate_on_submit():
-                alat.nmAlat = form.nmAlat.data
+                alat.nm_alat = form.nm_alat.data
                 alat.merk = form.merk.data
                 alat.tipe = form.tipe.data
-                alat.noSeri = form.noSeri.data
+                alat.no_seri = form.no_seri.data
                 alat.aksesoris = form.aksesoris.data
-                alat.thPengadaan = form.thPengadaan.data
+                alat.th_pengadaan = form.th_pengadaan.data
                 alat.ket = form.ket.data
 
-                aksi = "Edit alat id:" +str(alat.id)
-                log = Loguser(username=session['username'], aksi = aksi)
+                aksi = "Edit alat id: " +str(alat.id)
+                log = Loguser(username=session['username'], aksi=aksi)
                 db.session.add(log)
 
                 db.session.commit()
                 flash("Update data success...", "info")
                 return redirect(url_for('alat.index'))
 
-            form.nmAlat.data = alat.nmAlat
+            form.nm_alat.data = alat.nm_alat
             form.merk.data = alat.merk
             form.tipe.data = alat.tipe
-            form.noSeri.data = alat.noSeri
+            form.no_seri.data = alat.no_seri
             form.aksesoris.data = alat.aksesoris
-            form.thPengadaan.data = alat.thPengadaan
+            form.th_pengadaan.data = alat.th_pengadaan
             form.ket.data = alat.ket
 
             return render_template('alat/edit_alat.html',data=data, form=form)

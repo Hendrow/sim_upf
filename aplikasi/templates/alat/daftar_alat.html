@@ -42,12 +42,12 @@
           {% for d in alat %}
           <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ d.nmAlat }}</td>
+            <td>{{ d.nm_alat }}</td>
             <td>{{ d.merk }}</td>
             <td>{{ d.tipe }}</td>
-            <td>{{ d.noSeri }}</td>
+            <td>{{ d.no_seri }}</td>
             <td>{{ d.aksesoris }}</td>
-            <td>{{ d.thPengadaan }}</td>
+            <td>{{ d.th_pengadaan }}</td>
             <td>{{ d.ket }}</td>
             <td><a href="{{ url_for('alat.edit',id=d.id) }}" title="edit"><span data-feather="edit"></span></a> | <a href="" title="hapus" data-toggle="modal" data-target="#hapus{{ d.id }}"><span data-feather="trash-2" ></span></a></td>
           </tr>
@@ -63,7 +63,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  Menghapus {{ d.nmAlat }} ?
+                  Menghapus {{ d.nm_alat }} ?
                 </div>
                 <div class="modal-footer">
                   <form action="{{ url_for('alat.hapus',id=d.id) }}" method="post">
