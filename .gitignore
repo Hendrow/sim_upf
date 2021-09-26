@@ -5,5 +5,5 @@ aplikasi/main/__pycache__
 aplikasi/user/__pycache__
 migrations
 aplikasi/__init__.pyc
-aplikasi/db.sqlite
+aplikasi/db.sqlite3
 migrations
