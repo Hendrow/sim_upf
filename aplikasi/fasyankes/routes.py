@@ -37,11 +37,11 @@ def input():
             fax = form.fax.data
             
             # input data ke dalam table fasyankes
-            f = Fasyankes(nama=nama, status=status, alamat=alamat, kota=kota, provinsi=provinsi, email=email, telepon=telepon, fax=fax)
-            db.session.add(f)
+            add_fasyankes = Fasyankes(nama, status, alamat, kota, provinsi, email, telepon, fax)
+            db.session.add(add_fasyankes)
 
-            aksi = "add fasyankes:"+nama
-            log = Loguser(username=session['username'], aksi=aksi)
+            aksi = f"fasyankes add: {nama}"
+            log = Loguser(session['username'], aksi)
             db.session.add(log)
             db.session.commit()
 
@@ -71,8 +71,8 @@ def edit(id):
             cari.telepon = form.telepon.data
             cari.fax = form.fax.data
 
-            aksi = "edit fasyankes:"+cari.nama
-            log = Loguser(username=session['username'], aksi=aksi)
+            aksi = f"fasyankes edit: {cari.id}"
+            log = Loguser(session['username'], aksi)
             db.session.add(log)
             db.session.commit()
 
@@ -100,8 +100,8 @@ def hapus(id):
         if f:
             db.session.delete(f)
 
-            aksi = "hapus fasyankes:"+f.nama
-            log = Loguser(username=session['username'], aksi=aksi)
+            aksi = f"fasyankes del:{f.nama}"
+            log = Loguser(session['username'], aksi)
             db.session.add(log)
             db.session.commit()
 

@@ -38,12 +38,13 @@ def add():
             th_pengadaan = form.th_pengadaan.data
             ket = form.ket.data
 
-            m_alat = Alat(nm_alat=nm_alat, merk=merk, tipe=tipe, no_seri=no_seri, aksesoris=aksesoris, th_pengadaan=th_pengadaan, ket=ket)
-            db.session.add(m_alat)
+            add_alat = Alat(nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket)
+            db.session.add(add_alat)
 
-            aksi = f"tambah alat: {nm_alat}"
-            log = Loguser(username=session['username'], aksi=aksi)
-            db.session.add(log)
+            aksi = f"input alat: {nm_alat}"
+
+            catatan = Loguser(session['username'], aksi)
+            db.session.add(catatan)
             db.session.commit()
 
             flash('Data sudah tersimpan..','success')
@@ -74,9 +75,10 @@ def edit(id):
                 alat.th_pengadaan = form.th_pengadaan.data
                 alat.ket = form.ket.data
 
-                aksi = "Edit alat id: " +str(alat.id)
-                log = Loguser(username=session['username'], aksi=aksi)
-                db.session.add(log)
+                aksi = f"edit alat id:{alat.id}"
+
+                catatan = Loguser(session['username'], aksi)
+                db.session.add(catatan)
 
                 db.session.commit()
                 flash("Update data success...", "info")
@@ -102,8 +104,8 @@ def hapus(id):
         if alat:
             db.session.delete(alat)
 
-            aksi = "Del alat id:" +str(alat.id)
-            log = Loguser(username=session['username'], aksi = aksi)
+            aksi = f"delete alat id:{alat.id}"
+            log = Loguser(session['username'], aksi)
             db.session.add(log)
 
             db.session.commit()

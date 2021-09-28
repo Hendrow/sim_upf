@@ -48,10 +48,10 @@ def reg():
             username = form.username.data
             pw_hash = bcrypt.generate_password_hash(form.password.data)
             email = form.email.data
-            nmLengkap = form.nmLengkap.data
+            nm_lengkap = form.nm_lengkap.data
             pwdnew = pw_hash.decode("utf-8", "ignore")
 
-            u = Users(username=username, password=pwdnew, email=email, nmLengkap=nmLengkap, gambar="")
+            u = Users(username, pwdnew, email, nm_lengkap, "")
             db.session.add(u)
             db.session.commit()
             flash('Register user baru berhasil!','success')
