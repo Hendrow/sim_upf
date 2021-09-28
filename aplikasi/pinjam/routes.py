@@ -6,7 +6,7 @@ from .forms import Input
 mod = Blueprint('pinjam',__name__, template_folder='templates')
 
 
-@mod.route('/pinjam', methods=['GET','POST'])
+@mod.route('/pinjam', methods=['GET'])
 def index():
     if 'username' in session:
         data = {
@@ -42,19 +42,20 @@ def input():
         form.fasyankes.query = Fasyankes.query.order_by(Fasyankes.nama).all()
 
         if form.validate_on_submit():
-            peminjam = form.peminjam.data
-            petugas = form.petugas.data
+            peminjam_alat = form.peminjam_alat.data
+            petugas_catat = form.petugas_catat.data
             tanggal = form.tanggal.data
-            kordinator_tim = form.kordinatorTim.data
+            kordinator_tim = form.kordinator_tim.data
+            status = 'input'
             fasyankes = str(form.fasyankes.data)
 
             print(fasyankes)
             # return "{}".format(fasyankes)
 
-            if peminjam != petugas:
+            if peminjam_alat != petugas_catat:
                 # status input untuk proses input belum selesai, submit untuk proses yang sudah selesai
-                p = Pinjam(peminjam=peminjam, petugas=petugas, tanggal=tanggal, kordinatorTim= kordinator_tim, fasyankes=fasyankes, status='input')
-                db.session.add(p)
+                pinjam = Pinjam(peminjam_alat,petugas_catat, tanggal,kordinator_tim, status, fasyankes)
+                db.session.add(pinjam)
                 db.session.commit()
 
                 query = Pinjam.query.order_by(Pinjam.id.desc()).first()
@@ -81,8 +82,8 @@ def hapus(id):
         p = Pinjam.query.get_or_404(id)
         if p:
             db.session.delete(p)
-            aksi = "Del pinjam id:" +str(p.id)
-            log = Loguser(username=session['username'], aksi = aksi)
+            aksi = f"pinjam del id:{p.id}"
+            log = Loguser(session['username'], aksi)
             db.session.add(log)
 
             db.session.commit()
