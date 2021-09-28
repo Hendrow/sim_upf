@@ -42,9 +42,9 @@
             <tr>
               <td>{{ loop.index }}</td>
               <td>{{ d.fasyankes }}</td>
-              <td>{{ d.peminjam }}</td>
-              <td>{{ d.petugas }}</td>
-              <td>{{ d.kordinatorTim }} </td>          
+              <td>{{ d.peminjam_alat }}</td>
+              <td>{{ d.petugas_catat }}</td>
+              <td>{{ d.kordinator_tim }} </td>          
               <td>{{ d.tanggal.strftime("%d-%m-%Y") }} </td>
               <th>{{ d.status }}</th>
               <td><a href="" title="Edit"><span data-feather="edit"></span></a> | <a href="" data-toggle="modal" data-target="#hapus{{ d.id }}" title="Hapus"><span data-feather="trash-2"></span></a></td>
