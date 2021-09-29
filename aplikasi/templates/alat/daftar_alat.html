@@ -28,6 +28,7 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>Kode Alat</th>
             <th>Nama</th>
             <th>Merk</th>
             <th>Tipe</th>
@@ -42,6 +43,7 @@
           {% for d in alat %}
           <tr>
             <td>{{ loop.index }}</td>
+            <td>{{ d.kd_alat }}</td>
             <td>{{ d.nm_alat }}</td>
             <td>{{ d.merk }}</td>
             <td>{{ d.tipe }}</td>
