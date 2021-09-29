@@ -6,6 +6,7 @@ class Alat(db.Model):
     __tablename__ = 'alat'
 
     id = db.Column(db.Integer, primary_key=True)
+    kd_alat = db.Column(db.String(6), nullable=False)
     nm_alat = db.Column(db.String(100), nullable=False)
     merk = db.Column(db.String(30), nullable=False)
     tipe = db.Column(db.String(30), nullable=False)
@@ -16,7 +17,8 @@ class Alat(db.Model):
     kalibrasi = db.relationship('Logkalibrasi', backref='kalibrasi', lazy=True)
     log_alat = db.relationship('Logalat', backref='logalat', lazy=True)
 
-    def __init__(self, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket):
+    def __init__(self, kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket):
+        self.kd_alat = kd_alat
         self.nm_alat = nm_alat
         self.merk = merk
         self.tipe = tipe
@@ -26,7 +28,7 @@ class Alat(db.Model):
         self.ket = ket
 
     def __repr__(self):
-        return "Nama alat : {}".format(self.nmAlat)
+        return f"{self.kd_alat}"
 
 
 class Logkalibrasi(db.Model):
