@@ -30,6 +30,18 @@ def add():
 
         form = Input()
         if form.validate_on_submit():
+            alat = Alat.query.order_by(Alat.id.desc()).first()
+            if alat:
+                id_number = alat.id + 1
+                if len(str(id_number)) < 5:
+                    urut = "0" * (5-len(str(id_number))) + str(id_number)
+                    kd = f"PK{urut}"
+            else:
+                id_number = 1
+                urut = "0" * (5-1) + str(id_number)
+                kd = f"PK{urut}"
+
+            kd_alat = kd
             nm_alat = form.nm_alat.data
             merk = form.merk.data
             tipe = form.tipe.data
@@ -38,10 +50,10 @@ def add():
             th_pengadaan = form.th_pengadaan.data
             ket = form.ket.data
 
-            add_alat = Alat(nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket)
+            add_alat = Alat(kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket)
             db.session.add(add_alat)
 
-            aksi = f"input alat: {nm_alat}"
+            aksi = f"add kode:{kd_alat}"
 
             catatan = Loguser(session['username'], aksi)
             db.session.add(catatan)
