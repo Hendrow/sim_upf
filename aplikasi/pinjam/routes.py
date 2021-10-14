@@ -57,6 +57,9 @@ def input():
 
                 query = Pinjam.query.order_by(Pinjam.id.desc()).first()
                 return redirect(url_for('pinjam.daftar',id=query.id))
+            else:
+                flash("Peminjam dan Pencatat tidak boleh sama!!!", "warning")
+                return redirect(url_for('pinjam.input'))
 
         return render_template('pinjam/input.html', data=data, form=form)
     
@@ -97,3 +100,4 @@ def scan():
             'header' : 'Scan'
         }
     return render_template('pinjam/scanqrcode.html', data=data)
+
