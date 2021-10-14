@@ -51,7 +51,28 @@
           if (event.keyCode == 13){
               event.preventDefault();
             //   document.getElementById("btn").click();
-                alert('hello input')
+                // alert('hello input')
+            $.ajax({
+                data:{
+                    kd_alat : $('#kode').val()
+                },
+                type : 'POST',
+                url : '/simpan_alat'
+            })
+            .done(function(data) {
+            if (data.error) {
+                $('#errorAlert').text(data.error).show();
+                $('#successAlert').hide();
+                $('#loading').hide();
+            }
+            else {
+                $('#successAlert').text(data.name).show();
+                $('#errorAlert').hide();
+                $('#loading').hide();
+            }
+ 
+        });
+        event.preventDefault();
           }
       })
     });
