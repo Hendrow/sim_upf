@@ -14,7 +14,7 @@ def index():
             'header' : 'Daftar Alat'
         }
 
-        alat = Alat.query.all()
+        alat = Alat.query.order_by(Alat.id).all()
         return render_template('alat/daftar_alat.html', data=data, alat=alat)
     else:
         return redirect(url_for('user.login'))    
