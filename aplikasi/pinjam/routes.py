@@ -49,11 +49,8 @@ def input():
             status = 'input'
             fasyankes = str(form.fasyankes.data)
 
-            print(fasyankes)
-            # return "{}".format(fasyankes)
-
             if peminjam_alat != petugas_catat:
-                # status input untuk proses input belum selesai, submit untuk proses yang sudah selesai
+                # status input untuk proses yang belum selesai, submit untuk proses yang sudah selesai
                 pinjam = Pinjam(peminjam_alat,petugas_catat, tanggal,kordinator_tim, status, fasyankes)
                 db.session.add(pinjam)
                 db.session.commit()
