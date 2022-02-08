@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, session, flash
 from aplikasi import db
-from aplikasi.models import Pinjam, Fasyankes, Loguser
+from aplikasi.models import Peminjam_alat, Fasyankes, Loguser
 from .forms import Input
 
 mod = Blueprint('pinjam',__name__, template_folder='templates')
@@ -12,11 +12,12 @@ def index():
         data = {
             'title': 'Daftar Peminjaman',
             'header' : 'Daftar Peminjaman',
-            'pinjam': Pinjam.query.filter_by(status='submit').all()
+            'pinjam': Peminjam_alat.query.filter_by(status='submit').all()
         }
         return render_template('pinjam/index.html', data=data)
     
     return redirect(url_for('user.login'))
+
 
 @mod.route('/pinjam/draf', methods=['GET','POST'])
 def draf():
@@ -24,7 +25,7 @@ def draf():
         data = {
             'title':'Draf Peminjaman',
             'header':'Draf peminjaman',
-            'pinjam': Pinjam.query.filter_by(status='input').all()
+            'pinjam': Peminjam_alat.query.filter_by(status='input').all()
         }
         return render_template('pinjam/draf_pinjam.html', data=data)
 
@@ -51,11 +52,11 @@ def input():
 
             if peminjam_alat != petugas_catat:
                 # status input untuk proses yang belum selesai, submit untuk proses yang sudah selesai
-                pinjam = Pinjam(peminjam_alat,petugas_catat, tanggal,kordinator_tim, status, fasyankes)
+                pinjam = Peminjam_alat(peminjam_alat,petugas_catat, tanggal,kordinator_tim, status, fasyankes)
                 db.session.add(pinjam)
                 db.session.commit()
 
-                query = Pinjam.query.order_by(Pinjam.id.desc()).first()
+                query = Peminjam_alat.query.order_by(Peminjam_alat.id.desc()).first()
                 return redirect(url_for('pinjam.daftar',id=query.id))
             else:
                 flash("Peminjam dan Pencatat tidak boleh sama!!!", "warning")
@@ -75,11 +76,12 @@ def daftar(id):
         }
         return render_template('pinjam/daftar_pinjam.html', data=data)
     return redirect(url_for('user.login'))
+    
 
 @mod.route('/pinjam/<int:id>/hapus', methods=['GET','POST'])
 def hapus(id):
     if 'username' in session:
-        p = Pinjam.query.get_or_404(id)
+        p = Peminjam_alat.query.get_or_404(id)
         if p:
             db.session.delete(p)
             aksi = f"pinjam del id:{p.id}"
