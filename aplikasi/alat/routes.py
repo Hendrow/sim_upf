@@ -53,7 +53,7 @@ def add():
             add_alat = Alat(kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket)
             db.session.add(add_alat)
 
-            aksi = f"add kode:{kd_alat}"
+            aksi = f"add alat: {add_alat.id}"
 
             catatan = Loguser(session['username'], aksi)
             db.session.add(catatan)
