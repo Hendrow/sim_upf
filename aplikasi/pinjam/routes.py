@@ -10,8 +10,8 @@ mod = Blueprint('pinjam',__name__, template_folder='templates')
 def index():
     if 'username' in session:
         data = {
-            'title': 'Daftar Peminjaman',
-            'header' : 'Daftar Peminjaman',
+            'title': 'Data Peminjaman',
+            'header' : 'Data Peminjaman',
             'pinjam': Peminjam_alat.query.filter_by(status='submit').all()
         }
         return render_template('pinjam/index.html', data=data)
@@ -36,8 +36,8 @@ def draf():
 def input():
     if 'username' in session:
         data = {
-            'title': 'Forn peminjaman',
-            'header' : 'Form peminjaman'
+            'title': 'Input Peminjaman',
+            'header' : 'Input Peminjaman'
         }
         form = Input()
         form.fasyankes.query = Fasyankes.query.order_by(Fasyankes.nama).all()
@@ -46,13 +46,13 @@ def input():
             peminjam_alat = form.peminjam_alat.data
             petugas_catat = form.petugas_catat.data
             tanggal = form.tanggal.data
-            kordinator_tim = form.kordinator_tim.data
-            status = 'input'
+            status = 'pinjam'
             fasyankes = str(form.fasyankes.data)
+            keterangan = form.keterangan.data
 
             if peminjam_alat != petugas_catat:
                 # status input untuk proses yang belum selesai, submit untuk proses yang sudah selesai
-                pinjam = Peminjam_alat(peminjam_alat,petugas_catat, tanggal,kordinator_tim, status, fasyankes)
+                pinjam = Peminjam_alat(peminjam_alat,petugas_catat, tanggal, status, fasyankes, keterangan)
                 db.session.add(pinjam)
                 db.session.commit()
 
@@ -74,9 +74,9 @@ def daftar(id):
             'title': 'Daftar peminjaman',
             'header' : 'Daftar Peminjaman'
         }
-        return render_template('pinjam/daftar_pinjam.html', data=data)
+        return render_template('pinjam/input_alat.html', data=data)
     return redirect(url_for('user.login'))
-    
+
 
 @mod.route('/pinjam/<int:id>/hapus', methods=['GET','POST'])
 def hapus(id):

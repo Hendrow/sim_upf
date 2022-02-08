@@ -14,8 +14,7 @@ class Input(FlaskForm):
         choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika'),('Demtania','Demtania'),('Robiyansyah','Robiyansyah'),('Elvira','Elvira')])
     peminjam_alat =  SelectField('Peminjam Alat',
         choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika'),('Demtania','Demtania'),('Robiyansyah','Robiyansyah'),('Elvira','Elvira')])    
-    tanggal = DateField('Tanggal peminjaman', validators=[DataRequired()])
-    kordinator_tim = SelectField('Kordinator Tim',
-        choices=[('none','...Pilih..'),('Andi P','Andi Purba'),('Azizil T','Azizil Tiara Putra'),('M Agung','M Agung S'),('M Ilham','M Ilham Maulana'),('Sandra M','Sandra Monika'),('Demtania','Demtania'),('Robiyansyah','Robiyansyah'),('Elvira','Elvira')])
+    tanggal = DateField('Tanggal peminjaman', validators=[DataRequired()])    
     fasyankes = QuerySelectField(query_factory=pilih_fasyankes, allow_blank=True, get_label='nama')
+    keterangan = StringField("Keterangan", validators="")
     simpan = SubmitField('Lanjut')

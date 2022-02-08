@@ -10,8 +10,8 @@ mod = Blueprint('alat',__name__, template_folder='templates')
 def index():
     if 'username' in session:
         data = {
-            'title': 'Alat Kalibrasi',
-            'header' : 'Daftar Alat'
+            'title': 'Data Alat',
+            'header' : 'Data Alat Kalibrasi'
         }
 
         alat = Alat.query.order_by(Alat.id).all()
@@ -24,8 +24,8 @@ def index():
 def add():
     if 'username' in session:
         data = {
-            'title': 'Input data',
-            'header' : 'Input data'
+            'title': 'Input Alat',
+            'header' : 'Input Alat'
         }
 
         form = Input()
@@ -53,13 +53,13 @@ def add():
             add_alat = Alat(kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket)
             db.session.add(add_alat)
 
-            aksi = f"add alat: {add_alat.id}"
+            aksi = f"add alat: {kd_alat}"
 
             catatan = Loguser(session['username'], aksi)
             db.session.add(catatan)
             db.session.commit()
 
-            flash('Data sudah tersimpan..','success')
+            flash('Data sudah disimpan!!','success')
             return redirect(url_for('alat.index'))
 
         return render_template('alat/tambah_alat.html', data=data, form=form)
@@ -93,7 +93,7 @@ def edit(id):
                 db.session.add(catatan)
 
                 db.session.commit()
-                flash("Update data success...", "info")
+                flash("Data Berhasil diUpdate!!", "info")
                 return redirect(url_for('alat.index'))
 
             form.nm_alat.data = alat.nm_alat
@@ -121,7 +121,7 @@ def hapus(id):
             db.session.add(log)
 
             db.session.commit()
-            flash("1 data sudah dihapus..", "warning")
+            flash("Data telah terhapus!!", "warning")
             return redirect(url_for('alat.index'))
     
     return redirect(url_for('user.login'))

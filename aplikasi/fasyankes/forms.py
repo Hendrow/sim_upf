@@ -6,9 +6,9 @@ from wtforms.validators import DataRequired, Email
 class Input(FlaskForm):
     nama =  StringField('Nama Fasyankes', validators=[DataRequired()])
     status =  SelectField('Status', 
-        choices=[('none','--Pilihan--'),('perusahaan','Perusahaan'),('klinik','Klinik'),
-        ('lab','Laboratorium'),('instansi','Instansi Pemerintah/Kementerian'),('rs pemerintah','RS. Pemerintah'),('rs swasta','RS. Swasta'),
-        ('puskesmas','Puskesmas')])
+        choices=[('none','--Pilihan--'),('Perusahaan','Perusahaan'),('Klinik','Klinik'),
+        ('Laboratorium','Laboratorium'),('Kementerian','Kementerian'),('Instansi Pemerintah','Instansi Pemerintah'),('RS. Pemerintah','RS. Pemerintah'),('RS. Swasta','RS. Swasta'),
+        ('Puskesmas','Puskesmas')])
     alamat = StringField("Alamat", validators=[DataRequired()])
     kota = StringField("Kota", validators=[DataRequired()])
     provinsi = StringField("Provinsi", validators=[DataRequired()])
@@ -21,9 +21,9 @@ class Input(FlaskForm):
 class Edit(FlaskForm):
     nama =  StringField('Nama Fasyankes', validators=[DataRequired()])
     status =  SelectField('Status', 
-        choices=[('none','--Pilihan--'),('perusahaan','Perusahaan'),('klinik','Klinik'),
-        ('lab','Laboratorium'),('instansi','Instansi Pemerintah/Kementerian'),('rs pemerintah','RS. Pemerintah'),('rs swasta','RS. Swasta'),
-        ('puskesmas','Puskesmas')])
+        choices=[('none','--Pilihan--'),('Perusahaan','Perusahaan'),('Klinik','Klinik'),
+        ('Laboratorium','Laboratorium'),('Kementerian','Kementerian'),('Instansi Pemerintah','Instansi Pemerintah'),('RS. Pemerintah','RS. Pemerintah'),('RS. Swasta','RS. Swasta'),
+        ('Puskesmas','Puskesmas')])
     alamat = StringField("Alamat", validators=[DataRequired()])
     kota = StringField("Kota", validators=[DataRequired()])
     provinsi = StringField("Provinsi", validators=[DataRequired()])

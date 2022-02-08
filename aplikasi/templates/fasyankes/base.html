@@ -34,6 +34,9 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
 
+    <!-- sweetalert -->
+    <script src="{{ url_for('static', filename='sweetalert.min.js') }}"></script>
+
   </head>
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -69,13 +72,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('fasyankes.index') }}">
               <span data-feather="file-text"></span>
-              Daftar Fasyankes
+              Data Fasyankes
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('fasyankes.input') }}">
               <span data-feather="folder-plus"></span>
-              Input data
+              Input Fasyankes
             </a>
           </li>
         </ul>

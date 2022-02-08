@@ -10,7 +10,7 @@ mod = Blueprint('fasyankes',__name__, template_folder='templates')
 @mod.route('/fasyankes')
 def index():
     if 'username' in session:
-        data = {'title':'Fasyankes',
+        data = {'title':'Data Fasyankes',
             'header':'Data Fasyankes',
             'fasyankes': Fasyankes.query.all()}
 
@@ -22,8 +22,8 @@ def index():
 @mod.route('/fasyankes/input', methods=['GET','POST'])
 def input():
     if 'username' in session:
-        data = {'title':'Input data',
-            'header':'Input data'}
+        data = {'title':'Input Fasyankes',
+            'header':'Input Fasyankes'}
 
         form=Input()
         if form.validate_on_submit():            
@@ -39,13 +39,17 @@ def input():
             # input data ke dalam table fasyankes
             add_fasyankes = Fasyankes(nama, status, alamat, kota, provinsi, email, telepon, fax)
             db.session.add(add_fasyankes)
+            
+            # flush data fasyankes sebelum commit
+            db.session.flush()
 
-            aksi = f"fasyankes add: {nama}"
+            aksi = f"add fasyankes: {add_fasyankes.id}"
             log = Loguser(session['username'], aksi)
             db.session.add(log)
+            # commit data add fasyankes dan loguser
             db.session.commit()
 
-            flash('Simpan data sukses...','success')
+            flash('Data berhasil disimpan!!!','success')
             return redirect(url_for('fasyankes.index'))
             
         return render_template('fasyankes/input.html', data=data, form=form)
@@ -76,7 +80,7 @@ def edit(id):
             db.session.add(log)
             db.session.commit()
 
-            flash('Update data sukses...','success')
+            flash('Data berhasil diupdate!!','success')
             return redirect(url_for('fasyankes.index'))
 
         form.nama.data = cari.nama
@@ -105,7 +109,7 @@ def hapus(id):
             db.session.add(log)
             db.session.commit()
 
-            flash('1 data dihapus !!!','warning')
+            flash('Data telah terhapus !!','warning')
             return redirect(url_for('fasyankes.index'))
     
     return redirect(url_for('user.login'))
