@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from sqlalchemy import exc
-from .forms import Register
+from .forms import Register, Edit_user
 from aplikasi import db, bcrypt
 from aplikasi.models import Users
 
@@ -36,6 +36,17 @@ def logout():
     return redirect(url_for('user.login'))
 
 
+@mod.route('/user/list')
+def list():
+    data = {
+        'title':'Users list',
+        'header':'Users list',
+        'user' : Users.query.all()
+    }
+
+    return render_template('user/index.html', data=data)
+
+
 @mod.route('/user/add', methods=['GET','POST'])
 def reg():
     data = {
@@ -50,16 +61,56 @@ def reg():
             pw_hash = bcrypt.generate_password_hash(form.password.data)
             email = form.email.data
             nm_lengkap = form.nm_lengkap.data
+            level = form.level.data
             pwdnew = pw_hash.decode("utf-8", "ignore")
 
-            u = Users(username, pwdnew, email, nm_lengkap, "")
-            db.session.add(u)
+            user = Users(username, pwdnew, email, nm_lengkap,level, "")
+            db.session.add(user)
             db.session.commit()
-            flash('Register user baru berhasil!','success')
-            return redirect(url_for('user.reg')) 
+            flash('User baru berhasil dibuat!!','success')
+            return redirect(url_for('user.list')) 
         except exc.IntegrityError:
             db.session.rollback()
-            flash('Maaf, data sudah ada !!!. Silahkan gunakan yang lain.','danger')
+            flash('Maaf, data sudah ada !!!. Silahkan gunakan yang lain.','warning')
             return redirect(url_for('user.reg'))        
 
     return render_template('user/register.html', data=data, form=form)
+
+@mod.route('/user/edit/<int:id>', methods=['GET','POST'])
+def edit(id):
+    data = {
+        'title':'Edit user',
+        'header':'Edit user'
+    }
+    user = Users.query.get_or_404(id)
+
+    if user:
+        form = Edit_user()
+        if form.validate_on_submit():
+            user.username = form.username.data
+            user.email = form.email.data
+            user.nm_lengkap = form.nm_lengkap.data
+            user.level = form.level.data
+            
+            db.session.commit()
+
+            flash("User berhasil diupdate!","info")
+            return redirect(url_for('user.list'))
+        
+        form.username.data = user.username
+        form.email.data = user.email
+        form.nm_lengkap.data = user.nm_lengkap
+        form.level.data = user.level
+
+        return render_template('user/edit.html', data=data, form=form)
+
+    
+@mod.route('/user/hapus/<int:id>', methods=['GET','POST'])
+def hapus(id):
+    user = Users.query.get_or_404(id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+
+        flash("Data berhasil dihapus!!","info")
+        return redirect(url_for('user.list'))

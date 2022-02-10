@@ -53,7 +53,7 @@ def add():
             add_alat = Alat(kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket)
             db.session.add(add_alat)
 
-            aksi = f"add alat: {kd_alat}"
+            aksi = f"input alat:{kd_alat}"
 
             catatan = Loguser(session['username'], aksi)
             db.session.add(catatan)
@@ -93,7 +93,7 @@ def edit(id):
                 db.session.add(catatan)
 
                 db.session.commit()
-                flash("Data Berhasil diUpdate!!", "info")
+                flash("Data berhasil diupdate!!", "info")
                 return redirect(url_for('alat.index'))
 
             form.nm_alat.data = alat.nm_alat
@@ -116,12 +116,12 @@ def hapus(id):
         if alat:
             db.session.delete(alat)
 
-            aksi = f"delete alat id:{alat.id}"
+            aksi = f"hapus alat id:{alat.id}"
             log = Loguser(session['username'], aksi)
             db.session.add(log)
 
             db.session.commit()
-            flash("Data telah terhapus!!", "warning")
+            flash("Data berhaisl dihapus!!", "info")
             return redirect(url_for('alat.index'))
     
     return redirect(url_for('user.login'))

@@ -39,7 +39,7 @@ def input():
             tanggal_kembali = form.tanggal_kembali.data
             keterangan = form.keterangan.data
 
-            if peminjam_alat != petugas_catat:
+            if peminjam_alat != session.get('nm_lengkap'):
                 # status input untuk proses yang belum selesai, submit untuk proses yang sudah selesai
                 pinjam = Peminjam_alat(peminjam_alat,petugas_catat, status, tujuan, tanggal_berangkat,tanggal_kembali, keterangan)
                 db.session.add(pinjam)
@@ -48,7 +48,7 @@ def input():
                 query = Peminjam_alat.query.order_by(Peminjam_alat.id.desc()).first()
                 return redirect(url_for('pinjam.daftar',id=query.id))
             else:
-                flash("Peminjam dan Pencatat tidak boleh sama!!!", "warning")
+                flash("Maaf petugas catat tidak boleh meminjam !!!", "error")
                 return redirect(url_for('pinjam.input'))
 
         return render_template('pinjam/input.html', data=data, form=form)
@@ -70,15 +70,15 @@ def daftar(id):
 @mod.route('/pinjam/<int:id>/hapus', methods=['GET','POST'])
 def hapus(id):
     if 'username' in session:
-        p = Peminjam_alat.query.get_or_404(id)
-        if p:
-            db.session.delete(p)
-            aksi = f"pinjam del id:{p.id}"
+        pinjam = Peminjam_alat.query.get_or_404(id)
+        if pinjam:
+            db.session.delete(pinjam)
+            aksi = f"menghapus peminjaman alat id:{pinjam.id}"
             log = Loguser(session['username'], aksi)
             db.session.add(log)
 
             db.session.commit()
-            flash("1 data sudah dihapus..", "warning")
+            flash("Data berhasil dihapus!!", "info")
             return redirect(url_for('pinjam.index'))
 
     return redirect(url_for('user.login'))

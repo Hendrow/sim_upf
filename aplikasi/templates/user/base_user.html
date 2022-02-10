@@ -34,6 +34,9 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
 
+    <!-- sweetalert -->
+    <script src="{{ url_for('static', filename='sweetalert.min.js') }}"></script>
+
   </head>
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -67,9 +70,15 @@
         </h6>
         <ul class="nav flex-column">
           <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user.list') }}">
+              <span data-feather="users"></span>
+              Users List
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('user.reg') }}">
-              <span data-feather="database"></span>
-              User Registration
+              <span data-feather="user"></span>
+              Add User
             </a>
           </li>
         </ul>

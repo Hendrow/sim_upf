@@ -14,8 +14,7 @@ class Alat(db.Model):
     aksesoris = db.Column(db.String(100))
     th_pengadaan = db.Column(db.Integer)
     ket = db.Column(db.String(15))
-    # kalibrasi = db.relationship('Logkalibrasi', backref='kalibrasi', lazy=True)
-    log_alat = db.relationship('Log_alat', backref='alat', lazy=True)
+    log_pinjam = db.relationship('Log_pinjam', backref='alat', lazy=True)
 
     def __init__(self, kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket):
         self.kd_alat = kd_alat
@@ -65,13 +64,15 @@ class Users(db.Model):
     password = db.Column(db.String(100), nullable= False)
     email = db.Column(db.String(50), unique=True)
     nm_lengkap = db.Column(db.String(100), nullable=False)
+    level = db.Column(db.String(8), nullable=False)
     gambar = db.Column(db.String(100))
 
-    def __init__(self, username, password, email, nm_lengkap, gambar):
+    def __init__(self, username, password, email, nm_lengkap, level, gambar):
         self.username = username
         self.password = password
         self.email = email
         self.nm_lengkap = nm_lengkap
+        self.level = level
         self.gambar = gambar
 
     def __repr__(self):
@@ -104,7 +105,7 @@ class Peminjam_alat(db.Model):
     tanggal_berangkat = db.Column(db.Date, nullable=False)
     tanggal_kembali = db.Column(db.Date, nullable=False)
     keterangan = db.Column(db.String(150))
-    log_alat = db.relationship('Log_alat', backref='peminjam_alat', lazy=True)
+    log_pinjam = db.relationship('Log_pinjam', backref='peminjam_alat', lazy=True)
 
     def __init__(self, peminjam_alat, petugas_catat,  status, tujuan, tanggal_berangkat, tanggal_kembali, keterangan):
         self.peminjam_alat = peminjam_alat
@@ -119,8 +120,8 @@ class Peminjam_alat(db.Model):
         return f'{self.tujuan}'
 
 
-class Log_alat(db.Model):
-    __tablename__ = 'log_alat'
+class Log_pinjam(db.Model):
+    __tablename__ = 'log_pinjam'
     id = db.Column(db.Integer, primary_key=True)
     id_alat = db.Column(db.Integer, db.ForeignKey('alat.id'), nullable=False)
     id_peminjam = db.Column(db.Integer, db.ForeignKey('peminjam_alat.id'), nullable=False)
