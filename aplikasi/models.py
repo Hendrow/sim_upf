@@ -98,18 +98,21 @@ class Peminjam_alat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     peminjam_alat = db.Column(db.String(25), nullable=False)
     petugas_catat = db.Column(db.String(25), nullable=False)
-    tanggal = db.Column(db.Date, nullable=False)
+    tanggal = db.Column(db.DateTime, default=datetime.now())
     status = db.Column(db.String(25), nullable=False)
     tujuan = db.Column(db.String(100), nullable=False)
+    tanggal_berangkat = db.Column(db.Date, nullable=False)
+    tanggal_kembali = db.Column(db.Date, nullable=False)
     keterangan = db.Column(db.String(150))
     log_alat = db.relationship('Log_alat', backref='peminjam_alat', lazy=True)
 
-    def __init__(self, peminjam_alat, petugas_catat, tanggal, status, tujuan, keterangan):
+    def __init__(self, peminjam_alat, petugas_catat,  status, tujuan, tanggal_berangkat, tanggal_kembali, keterangan):
         self.peminjam_alat = peminjam_alat
         self.petugas_catat = petugas_catat
-        self.tanggal = tanggal
         self.status = status
         self.tujuan = tujuan
+        self.tanggal_berangkat = tanggal_berangkat
+        self.tanggal_kembali = tanggal_kembali
         self.keterangan = keterangan
 
     def __repr__(self):

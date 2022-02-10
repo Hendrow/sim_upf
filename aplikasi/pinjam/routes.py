@@ -12,7 +12,7 @@ def index():
         data = {
             'title': 'Data Peminjaman',
             'header' : 'Data Peminjaman',
-            'pinjam': Peminjam_alat.query.filter_by(status='submit').all()
+            'pinjam': Peminjam_alat.query.all()
         }
         return render_template('pinjam/index.html', data=data)
     
@@ -40,19 +40,21 @@ def input():
             'header' : 'Input Peminjaman'
         }
         form = Input()
-        form.fasyankes.query = Fasyankes.query.order_by(Fasyankes.nama).all()
+        form.tujuan.query = Fasyankes.query.order_by(Fasyankes.nama).all()
 
         if form.validate_on_submit():
             peminjam_alat = form.peminjam_alat.data
             petugas_catat = form.petugas_catat.data
-            tanggal = form.tanggal.data
-            status = 'pinjam'
-            fasyankes = str(form.fasyankes.data)
+            # tanggal = form.tanggal.data
+            status = 'Pinjam'
+            tujuan = str(form.tujuan.data)
+            tanggal_berangkat = form.tanggal_berangkat.data
+            tanggal_kembali = form.tanggal_kembali.data
             keterangan = form.keterangan.data
 
             if peminjam_alat != petugas_catat:
                 # status input untuk proses yang belum selesai, submit untuk proses yang sudah selesai
-                pinjam = Peminjam_alat(peminjam_alat,petugas_catat, tanggal, status, fasyankes, keterangan)
+                pinjam = Peminjam_alat(peminjam_alat,petugas_catat, status, tujuan, tanggal_berangkat,tanggal_kembali, keterangan)
                 db.session.add(pinjam)
                 db.session.commit()
 
