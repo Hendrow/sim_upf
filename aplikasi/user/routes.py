@@ -18,6 +18,7 @@ def login():
         if u:
             if bcrypt.check_password_hash(u.password, paswd):
                 session['username'] = user
+                session['nm_lengkap'] = u.nm_lengkap
                 return redirect(url_for('main.index'))
             else:
                 flash('Username/password salah!!!', 'danger')

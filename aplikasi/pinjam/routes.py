@@ -19,19 +19,6 @@ def index():
     return redirect(url_for('user.login'))
 
 
-@mod.route('/pinjam/draf', methods=['GET','POST'])
-def draf():
-    if 'username' in session:
-        data = {
-            'title':'Draf Peminjaman',
-            'header':'Draf peminjaman',
-            'pinjam': Peminjam_alat.query.filter_by(status='input').all()
-        }
-        return render_template('pinjam/draf_pinjam.html', data=data)
-
-    return redirect(url_for('user.login'))
-
-
 @mod.route('/pinjam/input', methods=['GET','POST'])
 def input():
     if 'username' in session:
@@ -95,13 +82,4 @@ def hapus(id):
             return redirect(url_for('pinjam.index'))
 
     return redirect(url_for('user.login'))
-
-
-@mod.route('/pinjam/scan')
-def scan():
-    data = {
-            'title': 'Scan',
-            'header' : 'Scan'
-        }
-    return render_template('pinjam/scanqrcode.html', data=data)
 

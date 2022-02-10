@@ -16,7 +16,8 @@ def dashboard():
     if 'username' in session:
         data = {
             'title': 'Dashboard',
-            'header' : 'Dashboard'
+            'header' : 'Dashboard',
+            'nama' : session.get('nm_lengkap')
         }
         return render_template('dashboard.html', data=data)
 

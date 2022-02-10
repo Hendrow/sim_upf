@@ -12,7 +12,8 @@ def index():
     if 'username' in session:
         data = {'title':'Data Fasyankes',
             'header':'Data Fasyankes',
-            'fasyankes': Fasyankes.query.all()}
+            'fasyankes': Fasyankes.query.all()
+            }
 
         return render_template('fasyankes/index.html', data=data)
     
@@ -23,7 +24,8 @@ def index():
 def input():
     if 'username' in session:
         data = {'title':'Input Fasyankes',
-            'header':'Input Fasyankes'}
+            'header':'Input Fasyankes'
+            }
 
         form=Input()
         if form.validate_on_submit():            
@@ -61,7 +63,8 @@ def input():
 def edit(id):
     if 'username' in session:
         data = {'title':'Edit data',
-            'header':'Edit data'}
+            'header':'Edit data'
+            }
         cari = Fasyankes.query.get_or_404(id)
 
         form = Edit()
