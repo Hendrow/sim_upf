@@ -2,3 +2,5 @@ Aplikasi Simupf
 
 10/02/2022
 - Membuat level pada user
+- Membuat form edit user
+- Membuat halaman list user
