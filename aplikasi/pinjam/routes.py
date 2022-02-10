@@ -31,7 +31,7 @@ def input():
 
         if form.validate_on_submit():
             peminjam_alat = form.peminjam_alat.data
-            petugas_catat = form.petugas_catat.data
+            petugas_catat = session.get('nm_lengkap')
             # tanggal = form.tanggal.data
             status = 'Pinjam'
             tujuan = str(form.tujuan.data)
