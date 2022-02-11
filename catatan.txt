@@ -4,3 +4,7 @@ Aplikasi Simupf
 - Membuat level pada user
 - Membuat form edit user
 - Membuat halaman list user
+
+11/02/2022
+- Merubah notifikasi pada login page menggunakan sweetalert
+- Merubah deskripsi simupf pada halaman dashboard
