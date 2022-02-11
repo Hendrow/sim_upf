@@ -31,6 +31,9 @@
     <link href="{{ url_for('static', filename='signin.css') }} " rel="stylesheet">
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <!-- sweetalert -->
+    <script src="{{ url_for('static', filename='sweetalert.min.js') }}"></script>
+    
   </head>
   <body class="text-center">
 
@@ -41,10 +44,9 @@
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}      
       {% for category,message in messages %}
-      <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        {{message}}
-      </div>
+      <script>
+        swal("Notifikasi", "{{message}}", "{{ category }}");
+      </script>
       {% endfor %}
     {% endif %}
   {% endwith %}

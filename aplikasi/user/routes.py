@@ -19,12 +19,13 @@ def login():
             if bcrypt.check_password_hash(u.password, paswd):
                 session['username'] = user
                 session['nm_lengkap'] = u.nm_lengkap
+                session['level'] = u.level
                 return redirect(url_for('main.index'))
             else:
-                flash('Username/password salah!!!', 'danger')
+                flash('Password anda salah!!', 'warning')
                 return redirect(url_for('user.login'))
 
-        flash('Username/password tidak ada!!','warning')
+        flash('Username tidak ditemukan!!','info')
         return redirect(url_for('user.login'))
         
     return render_template('user/login.html')
