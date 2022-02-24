@@ -1,0 +1,84 @@
+{% extends 'pinjam/base.html' %}
+
+{% block content %}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ data.header }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+    </div>
+    </div>
+
+    <!-- menampilkan data peminjam -->
+    <div class="row">
+        <div class="col-sm">
+            <div class="form-group row">
+                <label for="peminjam_alat" class="col-sm-2 col-form-label">Peminjam alat</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="peminjam_alat" value="hendro wijaya">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="tanggal" value="12/01/2022">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="form-group row">
+                <label for="tujuan" class="col-sm-2 col-form-label">Tujuan</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="tujuan" value="RSUD Kita">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="petugas_catat" class="col-sm-2 col-form-label">Petugas Catat</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="tujuan" value="Wijaya">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end data peminjaman -->
+    <br>
+    <!-- form input -->
+    <div class="row">        
+        <div class="col-sm-6">
+            <form class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="id_alat" class="sr-only">ID Alat</label>
+                    <input type="password" class="form-control" id="id_alat" placeholder="ID Alat">
+                  </div>
+                <button type="submit" class="btn btn-primary mb-2">Add</button>
+            </form>
+        </div>
+    </div>
+    <!--  end form -->
+
+    <!-- membuat table -->
+    <div class="row">
+        <div class="col-sm-10">
+            <table class="table table-strip">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Alat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Suction Pump</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>        
+    </div>
+    
+</main>
+{% endblock %}
