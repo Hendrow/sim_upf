@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for, session, flash
+from flask import Blueprint, render_template, redirect, url_for, session, flash, request
 from aplikasi import db
-from aplikasi.models import Peminjam_alat, Fasyankes, Loguser
+from aplikasi.models import Log_pinjam, Peminjam_alat, Fasyankes, Loguser
 from .forms import Input
 
 mod = Blueprint('pinjam',__name__, template_folder='templates')
@@ -63,7 +63,22 @@ def daftar(id):
             'title': 'Daftar peminjaman',
             'header' : 'Daftar Peminjaman'
         }
-        return render_template('pinjam/input_alat.html', data=data)
+        query = Peminjam_alat.query.get_or_404(id)
+        query2 = Log_pinjam.query.filter_by(id_peminjam=id).all()
+        # cek form input
+        if request.method == "POST":
+            id_alat = request.form['id_alat']
+            id_peminjam = id
+
+            q = Log_pinjam(id_alat, id_peminjam)
+            db.session.add(q)
+            db.session.commit()
+            flash('Data berhasil ditambahkan!','success')
+            redirect(url_for('pinjam.daftar',id=q.id_peminjam))
+
+        return render_template('pinjam/input_alat.html', data=data, query=query, query2=query2)
+
+
     return redirect(url_for('user.login'))
 
 
@@ -81,5 +96,16 @@ def hapus(id):
             flash("Data berhasil dihapus!!", "info")
             return redirect(url_for('pinjam.index'))
 
+    return redirect(url_for('user.login'))
+
+
+@mod.route('/pinjam/lihat_data')
+def lihat_data():
+    if 'username' in session:
+        data = {
+            'title' : 'Peminjaman Alat',
+            'header' :'Peminjaman Alat'
+        }
+        return render_template('pinjam/daftar_pinjam.html', data=data)
     return redirect(url_for('user.login'))
 
