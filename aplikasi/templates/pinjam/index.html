@@ -53,7 +53,7 @@
           {% endif %}         
           
           <td>{{ d.Keterangan }}</td>
-          <td><a href="" title="Edit"><span data-feather="edit"></span></a> | <a href="" data-toggle="modal" data-target="#hapus{{ d.id }}" title="Hapus"><span data-feather="trash-2"></span></a></td>
+          <td><a href="{{ url_for('pinjam.lihat_data') }}" title="Lihat Data"><span data-feather="zoom-in"></span></a> | <a href="" data-toggle="modal" data-target="#hapus{{ d.id }}" title="Hapus"><span data-feather="trash-2"></span></a></td>
         </tr>
 
         <!-- Modal Konfirmasi Hapus-->
