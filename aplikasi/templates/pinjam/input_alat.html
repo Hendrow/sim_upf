@@ -19,13 +19,13 @@
             <div class="form-group row">
                 <label for="peminjam_alat" class="col-sm-2 col-form-label">Peminjam alat</label>
                 <div class="col-sm-4">
-                    <input type="text" readonly class="form-control" id="peminjam_alat" value="{{ query.peminjam_alat}}">
+                    <input type="text" readonly class="form-control" id="peminjam_alat" value="{{ data.query.peminjam_alat}}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-4">
-                    <input type="text" readonly class="form-control" id="tanggal" value="{{ query.tanggal.strftime('%d-%m-%Y') }}">
+                    <input type="text" readonly class="form-control" id="tanggal" value="{{ data.query.tanggal.strftime('%d-%m-%Y') }}">
                 </div>
             </div>
         </div>
@@ -33,26 +33,27 @@
             <div class="form-group row">
                 <label for="tujuan" class="col-sm-2 col-form-label">Tujuan</label>
                 <div class="col-sm-4">
-                    <input type="text" readonly class="form-control" id="tujuan" value="{{ query.tujuan }}">
+                    <input type="text" readonly class="form-control" id="tujuan" value="{{ data.query.tujuan }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="petugas_catat" class="col-sm-2 col-form-label">Petugas Catat</label>
                 <div class="col-sm-4">
-                    <input type="text" readonly class="form-control" id="tujuan" value="{{ query.petugas_catat }}">
+                    <input type="text" readonly class="form-control" id="tujuan" value="{{ data.query.petugas_catat }}">
                 </div>
             </div>
         </div>
+        <!-- <input type="hidden" value="{{ data.query.id }}" id="getid"> -->
     </div>
     <!-- end data peminjaman -->
     <br>
     <!-- form input -->
     <div class="row">        
         <div class="col-sm-6">
-            <form class="form-inline" method="post">
+            <form class="form-inline" method="post" action="{{ url_for('pinjam.inputalat',id=data.query.id) }}">
                 <div class="form-group mx-sm-3 mb-2">
-                    <label for="id_alat" class="sr-only">ID Alat</label>
-                    <input type="text" class="form-control" id="id_alat" name="id_alat" placeholder="ID Alat">
+                    <label for="input_alat" class="sr-only">ID Alat</label>
+                    <input type="text" class="form-control" id="input_alat" name="id_alat" placeholder="Masukkan ID Alat">
                   </div>
                 <button type="submit" class="btn btn-primary mb-2">Add</button>
             </form>
@@ -60,35 +61,18 @@
     </div>
     <!--  end form -->
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}      
+        {% for category,message in messages %}
+        <script>
+            swal("Notifikasi", "{{message}}", "{{ category }}");
+        </script>
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <!-- membuat table -->
-    <div class="row">
-        <div class="col-sm-10">
-            <table class="table table-strip">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Alat</th>
-                        <th>Merk</th>
-                        <th>Tipe</th>
-                        <th>No. Seri</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if query2 %}
-                        {% for i in query2 %}
-                            <tr>
-                                <td>{{loop.index}}</td>
-                                <td>{{ i.alat.nm_alat }}</td>
-                                <td>{{ i.alat.merk }}</td>
-                                <td>{{ i.alat.tipe }}</td>
-                                <td>{{ i.alat.no_seri }}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>        
-    </div>
+    <div id="result"></div>
     
 </main>
 {% endblock %}

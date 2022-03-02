@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session, flash, request
+from flask import Blueprint, jsonify, render_template, redirect, url_for, session, flash, request
 from aplikasi import db
 from aplikasi.models import Log_pinjam, Peminjam_alat, Fasyankes, Loguser
 from .forms import Input
@@ -45,8 +45,7 @@ def input():
                 db.session.add(pinjam)
                 db.session.commit()
 
-                query = Peminjam_alat.query.order_by(Peminjam_alat.id.desc()).first()
-                return redirect(url_for('pinjam.daftar',id=query.id))
+                return redirect(url_for('pinjam.daftar',id=pinjam.id))
             else:
                 flash("Maaf petugas catat tidak boleh meminjam !!!", "error")
                 return redirect(url_for('pinjam.input'))
@@ -61,25 +60,28 @@ def daftar(id):
     if 'username' in session:
         data = {
             'title': 'Daftar peminjaman',
-            'header' : 'Daftar Peminjaman'
+            'header' : 'Daftar Peminjaman',
+            'query' : Peminjam_alat.query.get_or_404(id)
         }
-        query = Peminjam_alat.query.get_or_404(id)
-        query2 = Log_pinjam.query.filter_by(id_peminjam=id).all()
-        # cek form input
-        if request.method == "POST":
-            id_alat = request.form['id_alat']
-            id_peminjam = id
-
-            q = Log_pinjam(id_alat, id_peminjam)
-            db.session.add(q)
-            db.session.commit()
-            flash('Data berhasil ditambahkan!','success')
-            redirect(url_for('pinjam.daftar',id=q.id_peminjam))
-
-        return render_template('pinjam/input_alat.html', data=data, query=query, query2=query2)
-
-
+        return render_template('pinjam/input_alat.html', data=data)
     return redirect(url_for('user.login'))
+
+@mod.route('/pinjam/inputalat/<int:id>', methods=['GET','POST'])
+def inputalat(id):
+    if request.method == "POST":
+        id_alat = request.form['hasil']        
+        id_peminjam = id
+
+        print(f'{id_alat} and {id_peminjam}')
+
+        q = Log_pinjam(id_alat, id_peminjam)
+        db.session.add(q)
+        db.session.commit()
+        flash('Data berhasil ditambahkan!','success')
+
+        detail = Log_pinjam.query.filter_by(id_peminjam=id_peminjam).all()
+        
+    return jsonify({'htmlresponse': render_template('pinjam/response.html', detail=detail )})
 
 
 @mod.route('/pinjam/<int:id>/hapus', methods=['GET','POST'])

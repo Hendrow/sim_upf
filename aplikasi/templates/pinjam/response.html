@@ -1,0 +1,25 @@
+<h3>Daftar alat yang dipinjam</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Alat</th>
+            <th>Merk</th>
+            <th>Tipe</th>
+            <th>Serial Number</th>
+            <th>Proses</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in detail %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ i.alat.nm_alat }}</td>
+            <td>{{ i.alat.merk }}</td>
+            <td>{{ i.alat.tipe }}</td>
+            <td>{{ i.alat.no_seri }}</td>
+            <td><a href="">Hapus</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

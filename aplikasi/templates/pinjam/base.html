@@ -89,8 +89,9 @@
     {% endblock %}
   </div>
 </div>
-      <script src="{{ url_for('static', filename='jquery-3.5.1.slim.min.js') }}"></script>
-      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <!-- <script src="{{ url_for('static', filename='jquery-3.5.1.slim.min.js') }}"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script> -->
       <script src="{{ url_for('static', filename='/dist/js/bootstrap.bundle.min.js') }}"></script>
       <script src="{{ url_for('static', filename='feather.min.js') }}"></script>
       <script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
@@ -102,6 +103,7 @@
             $('#working').DataTable();
         } );
       </script>
+      <script src="{{ url_for('static', filename='script_table.js') }}"></script>
       {% block skrip %}        
       {% endblock %}
 
