@@ -8,3 +8,6 @@ Aplikasi Simupf
 11/02/2022
 - Merubah notifikasi pada login page menggunakan sweetalert
 - Merubah deskripsi simupf pada halaman dashboard
+
+02/03/2022
+- Membuat halaman input daftar alat yang dipinjam dengan menggunakan metode ajax
