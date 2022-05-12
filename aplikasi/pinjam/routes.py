@@ -87,16 +87,23 @@ def inputalat(id):
 @mod.route('/pinjam/<int:id>/hapus', methods=['GET','POST'])
 def hapus(id):
     if 'username' in session:
-        pinjam = Peminjam_alat.query.get_or_404(id)
+        pinjam = Peminjam_alat.query.get(id)
         if pinjam:
             db.session.delete(pinjam)
-            aksi = f"menghapus peminjaman alat id:{pinjam.id}"
-            log = Loguser(session['username'], aksi)
-            db.session.add(log)
 
-            db.session.commit()
-            flash("Data berhasil dihapus!!", "info")
-            return redirect(url_for('pinjam.index'))
+        logpinjam = Log_pinjam.query.filter_by(id_peminjam=id).all()
+        if logpinjam:               
+            # hapus id diatas pada table Peminjaman_alat dan Log_pinjam
+            db.session.delete(logpinjam)            
+               
+            
+        aksi = f"menghapus peminjaman alat id:{pinjam.id}"
+        log = Loguser(session['username'], aksi)
+        db.session.add(log)
+
+        db.session.commit()
+        flash("Data berhasil dihapus!!", "info")
+        return redirect(url_for('pinjam.index'))
 
     return redirect(url_for('user.login'))
 
