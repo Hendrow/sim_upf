@@ -11,3 +11,8 @@ Aplikasi Simupf
 
 02/03/2022
 - Membuat halaman input daftar alat yang dipinjam dengan menggunakan metode ajax
+
+17/05/2022
+- Menghapus tombol hapus pada daftar pinjam
+- Menambah tampil data pada lihat data
+- Menambahkan modal dialog untuk input daftar alat (belum selesai)
