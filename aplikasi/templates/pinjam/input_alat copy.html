@@ -1,0 +1,104 @@
+{% extends 'pinjam/base.html' %}
+
+{% block content %}
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ data.header }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+    </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}      
+        {% for category,message in messages %}
+        <script>
+            swal("Notifikasi", "{{message}}", "{{ category }}");
+        </script>
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- menampilkan data peminjam -->
+    <div class="row">
+        <div class="col-sm">
+            <div class="form-group row">
+                <label for="peminjam_alat" class="col-sm-2 col-form-label">Peminjam alat</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="peminjam_alat" value="{{ data.query.peminjam_alat}}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="tanggal" value="{{ data.query.tanggal.strftime('%d-%m-%Y') }}">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="form-group row">
+                <label for="tujuan" class="col-sm-2 col-form-label">Tujuan</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="tujuan" value="{{ data.query.tujuan }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="petugas_catat" class="col-sm-2 col-form-label">Petugas Catat</label>
+                <div class="col-sm-4">
+                    <input type="text" readonly class="form-control" id="tujuan" value="{{ data.query.petugas_catat }}">
+                </div>
+            </div>
+        </div>
+        <!-- <input type="hidden" value="{{ data.query.id }}" id="getid"> -->
+    </div>
+    <!-- end data peminjaman -->
+    <br>
+    <!-- form input -->
+    <div class="row">        
+        <div class="col-sm-6">
+            <form class="form-inline" method="post" action="#{{ url_for('pinjam.inputalat',id=data.query.id) }}">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="input_alat" class="sr-only">ID Alat</label>
+                    <input type="text" class="form-control" id="input_alat" name="id_alat" placeholder="Masukkan ID Alat">
+                  </div>                
+            </form>
+
+            <button class="btn btn-primary mb-2" data-toggle="modal">Add</button>
+            
+            <!-- Modal Konfirmasi Hapus-->
+            <div class="modal fade" id="hapus{{ d.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    Yakin akan menghapus data {{ d.peminjam }}?
+                    </div>
+                    <div class="modal-footer">
+                    <form action="{{ url_for('pinjam.hapus',id=d.id) }}" method="post">
+                        <button type="submit" class="btn btn-primary">Iya</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                    </form>                 
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- end modal -->
+
+            </div>
+        </div>
+    <!--  end form -->    
+
+    <!-- membuat table -->
+    <div id="result"></div>
+    
+</main>
+{% endblock %}
