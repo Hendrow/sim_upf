@@ -105,7 +105,7 @@ class Peminjam_alat(db.Model):
     tanggal_berangkat = db.Column(db.Date, nullable=False)
     tanggal_kembali = db.Column(db.Date, nullable=False)
     keterangan = db.Column(db.String(150))
-    log_pinjam = db.relationship('Log_pinjam', backref='peminjam_alat', lazy=True)
+    log_pinjam = db.relationship('Log_pinjam', backref='peminjam', lazy=True)
 
     def __init__(self, peminjam_alat, petugas_catat,  status, tujuan, tanggal_berangkat, tanggal_kembali, keterangan):
         self.peminjam_alat = peminjam_alat
