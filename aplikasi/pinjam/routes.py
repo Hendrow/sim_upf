@@ -108,13 +108,15 @@ def hapus(id):
     return redirect(url_for('user.login'))
 
 
-@mod.route('/pinjam/lihat_data')
-def lihat_data():
+@mod.route('/pinjam/lihat_data/<int:id>')
+def lihat_data(id):
     if 'username' in session:
         data = {
-            'title' : 'Peminjaman Alat',
-            'header' :'Peminjaman Alat'
+            'title' : 'Daftar Pinjam Alat',
+            'header' :'Daftar Pinjam Alat'
         }
-        return render_template('pinjam/daftar_pinjam.html', data=data)
+        peminjam = Peminjam_alat.query.get(id)
+        lihat = Log_pinjam.query.filter_by(id_peminjam=id).all()
+        return render_template('pinjam/daftar_pinjam.html', data=data, lihat=lihat, peminjam=peminjam)
     return redirect(url_for('user.login'))
 
