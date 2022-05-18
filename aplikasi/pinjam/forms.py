@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired
 from wtforms_sqlalchemy.fields import QuerySelectField
 from aplikasi.models import Fasyankes
 
@@ -17,3 +17,7 @@ class Input(FlaskForm):
     tanggal_kembali = DateField('Tanggal Kembali', validators=[DataRequired()])  
     keterangan = StringField("Keterangan", validators="")
     simpan = SubmitField('Lanjut')
+
+class Form_add_alat(FlaskForm):
+    kd_alat =  StringField('Kode Alat', validators=[DataRequired()])
+    simpan = SubmitField('Simpan')
