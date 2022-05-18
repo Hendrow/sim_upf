@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, redirect, url_for, session, flash, request
 from aplikasi import db
-from aplikasi.models import Log_pinjam, Peminjam_alat, Fasyankes, Loguser
-from .forms import Input
+from aplikasi.models import Log_pinjam, Peminjam_alat, Fasyankes, Loguser, Alat
+from .forms import Input, Form_add_alat
 
 mod = Blueprint('pinjam',__name__, template_folder='templates')
 
@@ -63,7 +63,35 @@ def daftar(id):
             'header' : 'Daftar Peminjaman',
             'query' : Peminjam_alat.query.get_or_404(id)
         }
-        return render_template('pinjam/input_alat.html', data=data)
+
+        form = Form_add_alat()
+        if form.validate_on_submit():
+            kd_alat = form.kd_alat.data
+            # mencari id kode alat
+            alat = Alat.query.filter_by(kd_alat=kd_alat).first()
+            if alat:
+                # FILTER ALAT TIDAK BOLEH SAMA PADA 1 PEMINJAM
+                cari = Log_pinjam.query.filter_by(id_peminjam=id).first()
+                if cari:
+                    print('cari ketemu')
+                    if cari.id_alat == alat.id:
+                        print('ado id alat yg sama dalam satu id peminjaman')
+                        flash('Alat dengan kode ini sudah ada !!','Warning')
+                    else:
+                        print('simpen ye walau id sdh ado kareno id alat dak samo!')
+                        qlog = Log_pinjam(alat.id, id)
+                        db.session.add(qlog)
+                        db.session.commit()
+                else:
+                    print('id pinjem belum ado!')
+                    qlog = Log_pinjam(alat.id, id)
+                    db.session.add(qlog)
+                    db.session.commit()
+                
+                return redirect(url_for('pinjam.daftar', id=id))
+
+        detail = Log_pinjam.query.filter_by(id_peminjam=id).all()
+        return render_template('pinjam/input_alat.html', data=data, detail=detail, form=form)
     return redirect(url_for('user.login'))
 
 @mod.route('/pinjam/inputalat/<int:id>', methods=['GET','POST'])
