@@ -71,23 +71,20 @@ def daftar(id):
             alat = Alat.query.filter_by(kd_alat=kd_alat).first()
             if alat:
                 # FILTER ALAT TIDAK BOLEH SAMA PADA 1 PEMINJAM
-                cari = Log_pinjam.query.filter_by(id_peminjam=id).first()
-                if cari:
-                    print('cari ketemu')
-                    if cari.id_alat == alat.id:
-                        print('ado id alat yg sama dalam satu id peminjaman')
-                        flash('Alat dengan kode ini sudah ada !!','Warning')
-                    else:
-                        print('simpen ye walau id sdh ado kareno id alat dak samo!')
-                        qlog = Log_pinjam(alat.id, id)
-                        db.session.add(qlog)
-                        db.session.commit()
-                else:
-                    print('id pinjem belum ado!')
+                rangkap = 0
+                cari = Log_pinjam.query.filter_by(id_peminjam=id).all()
+                for i in cari:
+                    if i.id_alat == alat.id:
+                        rangkap = 1
+
+                if rangkap==0:
                     qlog = Log_pinjam(alat.id, id)
                     db.session.add(qlog)
                     db.session.commit()
-                
+                    flash('Data berhasil ditambahkan','success')
+                else:
+                    flash('Maaf, Data sudah ada!','danger')
+                                
                 return redirect(url_for('pinjam.daftar', id=id))
 
         detail = Log_pinjam.query.filter_by(id_peminjam=id).all()
