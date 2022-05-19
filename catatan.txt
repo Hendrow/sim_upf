@@ -16,3 +16,11 @@ Aplikasi Simupf
 - Menghapus tombol hapus pada daftar pinjam
 - Menambah tampil data pada lihat data
 - Menambahkan modal dialog untuk input daftar alat (belum selesai)
+
+18/05/2022
+- Menambahkan modal box simpan kode alat
+- Membuat Simpan log pinjam dengan kd alat
+
+19/05/2022
+- Perbaikan filter penyimpanan pinjam alat, filter agar tidak tersimpan dua kali pada peminjaman yang sama
+- menambahkan message / notifikasi pada halaman pinjam
