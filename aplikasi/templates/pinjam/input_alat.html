@@ -16,9 +16,10 @@
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}      
         {% for category,message in messages %}
-        <script>
-            swal("Notifikasi", "{{message}}", "{{ category }}");
-        </script>
+        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <!-- <strong>Title</strong> --> {{ message }}
+        </div>
         {% endfor %}
         {% endif %}
     {% endwith %}
@@ -59,7 +60,7 @@
 
     <div class="row">        
         <div class="col-sm-12">            
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Alat</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambahkan Alat</button>
 
             <!-- Modal Add Kode Alat-->            
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,7 +79,7 @@
                 <div class="modal-body">                    
 
                     <div class="form-group">
-                        {{ form.kd_alat.label(class="col-sm-2 col-form-label") }}
+                        {{ form.kd_alat.label(class="col-sm-6 col-form-label") }}
                         {% if form.kd_alat.errors %}
                           <div class="col-sm-10 has-error">
                             {{ form.kd_alat(class="form-control") }}                                        
@@ -88,7 +89,7 @@
                           </div>
                         {% else %}
                         <div class="col-sm-10">
-                          {{ form.kd_alat(class="form-control", placeholder='Kode Alat') }}
+                          {{ form.kd_alat(class="form-control") }}
                         </div>
                         {% endif %}
                     </div>                    
