@@ -49,11 +49,19 @@
           <td>{{ d.tanggal_berangkat.strftime("%d-%m-%Y") }} </td>
           <td>{{ d.tanggal_kembali.strftime("%d-%m-%Y") }} </td>
           {% if d.status =='Pinjam' %}
-            <td style="color: orange;"><strong>{{ d.status }}</strong></td>
+            <td style="color: darkred;"><strong>{{ d.status }}</strong></td>
+          {% elif d.status=='Input' %}
+            <td style="color: dimgray;"><strong>{{ d.status }}</strong></td>
           {% endif %}         
           
           <td>{{ d.Keterangan }}</td>
-          <td><a href="{{ url_for('pinjam.lihat_data', id=d.id) }}" title="Lihat Data"><span data-feather="zoom-in"></span></a></td>
+          <td>
+            <!-- cek status untuk menampilkan tombol edit -->
+            {% if d.status == 'Input' %}
+            <a href="{{ url_for('pinjam.daftar', id=d.id) }}" title="Edit"><span data-feather="edit"></span></a> |
+            {% endif %}
+             <a href="{{ url_for('pinjam.lihat_data', id=d.id) }}" title="Lihat Data"><span data-feather="zoom-in"></span></a>
+          </td>
         </tr>
        
         {% endfor %}       
