@@ -12,7 +12,7 @@ def index():
         data = {
             'title': 'Data Peminjaman',
             'header' : 'Data Peminjaman',
-            'pinjam': Peminjam_alat.query.all()
+            'pinjam': Peminjam_alat.query.order_by(Peminjam_alat.tanggal.desc()).limit(50).all()
         }
         return render_template('pinjam/index.html', data=data)
     
@@ -33,7 +33,7 @@ def input():
             peminjam_alat = form.peminjam_alat.data
             petugas_catat = session.get('nm_lengkap')
             # tanggal = form.tanggal.data
-            status = 'Pinjam'
+            status = 'Input'
             tujuan = str(form.tujuan.data)
             tanggal_berangkat = form.tanggal_berangkat.data
             tanggal_kembali = form.tanggal_kembali.data
@@ -145,3 +145,42 @@ def lihat_data(id):
         return render_template('pinjam/daftar_pinjam.html', data=data, lihat=lihat, peminjam=peminjam)
     return redirect(url_for('user.login'))
 
+
+@mod.route('/pinjam/hapus_alat/<int:id>', methods=['GET','POST'])
+def hapus_alat(id):
+    if "username" in session:
+        # cek id pada table
+        clog = Log_pinjam.query.get_or_404(id)
+        if clog:
+            nm_alat= clog.alat.nm_alat
+            id_peminjam = clog.id_peminjam
+            db.session.delete(clog)
+
+            aksi = f"hapus peminjaman alat:{nm_alat}"
+            log = Loguser(session['username'], aksi)
+            db.session.add(log)
+
+            # eksekusi query
+            db.session.commit()
+            flash(f'Alat {clog.alat.nm_alat} berhasil dihapus!!','info')
+            return redirect(url_for('pinjam.daftar', id=id_peminjam))
+    return redirect(url_for('user.login'))
+
+
+@mod.route('/pinjam/simpan_proses/<int:id>', methods=['GET','POST'])
+def simpan_proses(id):
+    if "username" in session:
+        pinjam = Peminjam_alat.query.get_or_404(id)
+        if pinjam:
+            pinjam.status ='Pinjam'
+
+            aksi = f"Pinjam alat: {pinjam.id} simpan"
+            log = Loguser(session['username'], aksi)
+            db.session.add(log)
+            db.session.commit()
+
+            flash('Proses peminjaman alat selesai!','success')
+            return redirect(url_for('pinjam.index'))
+
+    return redirect(url_for('user.login'))
+    
