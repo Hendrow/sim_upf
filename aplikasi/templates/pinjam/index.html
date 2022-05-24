@@ -60,10 +60,35 @@
             {% if d.status == 'Input' %}
             <a href="{{ url_for('pinjam.daftar', id=d.id) }}" title="Edit"><span data-feather="edit"></span></a> |
             {% endif %}
-             <a href="{{ url_for('pinjam.lihat_data', id=d.id) }}" title="Lihat Data"><span data-feather="zoom-in"></span></a>
+             <a href="{{ url_for('pinjam.lihat_data', id=d.id) }}" title="Lihat Data"><span data-feather="zoom-in"></span></a> | 
+             <a href="#" data-toggle="modal" data-target="#kembali{{ d.id }}" title="Pengembalian alat"><span data-feather="check"></span></a>
           </td>
         </tr>
        
+        <!-- Modal Pengembalian-->
+        <div class="modal fade" id="kembali{{ d.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Pengembalian Alat</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+              <strong>Mengembalikan alat ?</strong>
+              </div>
+              <div class="modal-footer">
+              <form action="" method="post">
+                  <button type="submit" class="btn btn-primary">Iya</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+              </form>                 
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal -->
+
         {% endfor %}       
       </tbody>
     </table>
