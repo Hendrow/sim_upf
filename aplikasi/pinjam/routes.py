@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, sessio
 from aplikasi import db
 from aplikasi.models import Log_pinjam, Peminjam_alat, Fasyankes, Loguser, Alat
 from .forms import Input, Form_add_alat
+from datetime import datetime
 
 mod = Blueprint('pinjam',__name__, template_folder='templates')
 
@@ -78,7 +79,7 @@ def daftar(id):
                         rangkap = 1
 
                 if rangkap==0:
-                    qlog = Log_pinjam(alat.id, id)
+                    qlog = Log_pinjam(alat.id, id,"")
                     db.session.add(qlog)
                     db.session.commit()
                     flash('Data berhasil ditambahkan','success')
@@ -99,7 +100,7 @@ def inputalat(id):
 
         print(f'{id_alat} and {id_peminjam}')
 
-        q = Log_pinjam(id_alat, id_peminjam)
+        q = Log_pinjam(id_alat, id_peminjam,"")
         db.session.add(q)
         db.session.commit()
         flash('Data berhasil ditambahkan!','success')
@@ -183,4 +184,47 @@ def simpan_proses(id):
             return redirect(url_for('pinjam.index'))
 
     return redirect(url_for('user.login'))
+
+
+@mod.route('/pinjam/selesai/<int:id>', methods=['GET','POST'])
+def selesai(id):
+    if "username" in session:
+        pinjam = Peminjam_alat.query.get_or_404(id)
+        if pinjam:
+            pinjam.status ='dikembalikan'
+            pinjam.tanggal_selesai = datetime.now()
+
+            aksi = f"Pengembalian alat: {pinjam.id} simpan"
+            log = Loguser(session['username'], aksi)
+            db.session.add(log)
+            db.session.commit()
+
+            flash('Proses pengembalian alat selesai!','success')
+            return redirect(url_for('pinjam.index'))
+    return redirect(url_for('user.login'))
+
+
+@mod.route('/pinjam/pengembalian/<int:id>')
+def pengembalian(id):
+    if "username" in session:
+        data = {
+            'title' : 'Pengembalian Alat',
+            'header' :'Pengembalian Alat'
+        }
+        peminjam = Peminjam_alat.query.get(id)
+        lihat = Log_pinjam.query.filter_by(id_peminjam=id).all()
+        
+        return render_template('pinjam/pengembalian.html', data=data, lihat=lihat, peminjam=peminjam)
+    return redirect(url_for('user.login'))
+
+
+@mod.route('/pinjam/note/<int:id>', methods=['GET','POST'])
+def note(id):
+    l = Log_pinjam.query.get_or_404(id)
+    if l:
+        if request.method == "POST":
+            note = request.form['note']
+            l.note = note
+            db.session.commit()
+            return redirect(url_for('pinjam.pengembalian', id=l.id_peminjam))
     

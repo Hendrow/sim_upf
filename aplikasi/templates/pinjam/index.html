@@ -31,8 +31,6 @@
           <th>Petugas Catat</th>        
           <th>Tanggal</th>
           <th>Tujuan</th>
-          <th>Tanggal Berangkat</th>
-          <th>Tanggal Kembali</th>
           <th>Status</th>
           <th>Keterangan</th>
           <th>Aksi</th>
@@ -46,12 +44,15 @@
           <td>{{ d.petugas_catat }}</td>      
           <td>{{ d.tanggal.strftime("%d-%m-%Y") }} </td>
           <td>{{ d.tujuan }}</td>
-          <td>{{ d.tanggal_berangkat.strftime("%d-%m-%Y") }} </td>
-          <td>{{ d.tanggal_kembali.strftime("%d-%m-%Y") }} </td>
           {% if d.status =='Pinjam' %}
-            <td style="color: darkred;"><strong>{{ d.status }}</strong></td>
+            <!-- <td style="color: darkred;"><strong>{{ d.status }}</strong></td> -->
+            <td title="Dalam Peminjaman">&#128308;</td>
           {% elif d.status=='Input' %}
-            <td style="color: dimgray;"><strong>{{ d.status }}</strong></td>
+            <!-- <td style="color: dimgray;"><strong>{{ d.status }}</strong></td> -->
+            <td title="Status Input">&#9711;</td>
+          {% elif d.status=='dikembalikan' %}
+            <!-- <td style="color: green;"><strong>Dikembalikan</strong></td> -->
+            <td title="Sudah dikembalikan">&#128309;</td>
           {% endif %}         
           
           <td>{{ d.Keterangan }}</td>
@@ -60,35 +61,12 @@
             {% if d.status == 'Input' %}
             <a href="{{ url_for('pinjam.daftar', id=d.id) }}" title="Edit"><span data-feather="edit"></span></a> |
             {% endif %}
-             <a href="{{ url_for('pinjam.lihat_data', id=d.id) }}" title="Lihat Data"><span data-feather="zoom-in"></span></a> | 
-             <a href="#" data-toggle="modal" data-target="#kembali{{ d.id }}" title="Pengembalian alat"><span data-feather="check"></span></a>
+             <a href="{{ url_for('pinjam.lihat_data', id=d.id) }}" title="Lihat Data"><span data-feather="zoom-in"></span></a>  
+            {% if d.status =='Pinjam' %}
+            | <a href="{{ url_for('pinjam.pengembalian', id=d.id )}}" title="Pengembalian alat"><span data-feather="rotate-ccw"></span></a>
+            {% endif %}
           </td>
-        </tr>
-       
-        <!-- Modal Pengembalian-->
-        <div class="modal fade" id="kembali{{ d.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Pengembalian Alat</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-              </div>
-              <div class="modal-body">
-              <strong>Mengembalikan alat ?</strong>
-              </div>
-              <div class="modal-footer">
-              <form action="" method="post">
-                  <button type="submit" class="btn btn-primary">Iya</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-              </form>                 
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end modal -->
-
+        </tr>  
         {% endfor %}       
       </tbody>
     </table>

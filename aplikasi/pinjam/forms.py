@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from sqlalchemy import values
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired
@@ -21,3 +22,4 @@ class Input(FlaskForm):
 class Form_add_alat(FlaskForm):
     kd_alat =  StringField('Kode Alat', validators=[DataRequired()])
     simpan = SubmitField('Simpan')
+

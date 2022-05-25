@@ -104,7 +104,8 @@ class Peminjam_alat(db.Model):
     tujuan = db.Column(db.String(100), nullable=False)
     tanggal_berangkat = db.Column(db.Date, nullable=False)
     tanggal_kembali = db.Column(db.Date, nullable=False)
-    keterangan = db.Column(db.String(150))
+    keterangan = db.Column(db.String(100))
+    tanggal_selesai = db.Column(db.DateTime, nullable=True)
     log_pinjam = db.relationship('Log_pinjam', backref='peminjam', lazy=True)
 
     def __init__(self, peminjam_alat, petugas_catat,  status, tujuan, tanggal_berangkat, tanggal_kembali, keterangan):
@@ -123,12 +124,15 @@ class Peminjam_alat(db.Model):
 class Log_pinjam(db.Model):
     __tablename__ = 'log_pinjam'
     id = db.Column(db.Integer, primary_key=True)
+    note = db.Column(db.String(50), nullable=True)
     id_alat = db.Column(db.Integer, db.ForeignKey('alat.id'), nullable=False)
     id_peminjam = db.Column(db.Integer, db.ForeignKey('peminjam_alat.id'), nullable=False)
+    
 
-    def __init__(self, id_alat, id_peminjam):
+    def __init__(self, id_alat, id_peminjam, note):
         self.id_alat = id_alat
         self.id_peminjam = id_peminjam
+        self.note = note
 
     def __repr__(self):
         return f'alat: {self.id}, peminjam: {self.id_peminjam}'
