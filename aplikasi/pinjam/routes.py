@@ -79,10 +79,10 @@ def daftar(id):
                         rangkap = 1
 
                 if rangkap==0:
-                    qlog = Log_pinjam(alat.id, id,"")
+                    qlog = Log_pinjam(alat.id, id,"","")
                     db.session.add(qlog)
                     db.session.commit()
-                    flash('Data berhasil ditambahkan','success')
+                    flash('Data berhasil ditambahkan..','success')
                 else:
                     flash('Maaf, Data sudah ada!','danger')
                                 
@@ -220,11 +220,22 @@ def pengembalian(id):
 
 @mod.route('/pinjam/note/<int:id>', methods=['GET','POST'])
 def note(id):
-    l = Log_pinjam.query.get_or_404(id)
-    if l:
+    cari = Log_pinjam.query.get_or_404(id)
+    if cari:
         if request.method == "POST":
             note = request.form['note']
-            l.note = note
+            cari.note = note
             db.session.commit()
-            return redirect(url_for('pinjam.pengembalian', id=l.id_peminjam))
+            return redirect(url_for('pinjam.pengembalian', id=cari.id_peminjam))
+
+
+@mod.route('/pinjam/beban_kerja_alat/<int:id>', methods=['GET','POST'])
+def beban_kerja(id):
+    cari = Log_pinjam.query.get_or_404(id)
+    if cari:
+        if request.method == "POST" :
+            beban_kerja = request.form['beban']
+            cari.beban_kerja = beban_kerja
+            db.session.commit()
+            return redirect(url_for('pinjam.daftar', id = cari.id_peminjam))
     
