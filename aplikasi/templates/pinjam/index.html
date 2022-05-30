@@ -29,7 +29,7 @@
           <th>No</th>          
           <th>Nama Peminjam</th>
           <th>Petugas Catat</th>        
-          <th>Tanggal</th>
+          <th>Tanggal Peminjaman</th>
           <th>Tujuan</th>
           <th>Status</th>
           <th>Keterangan</th>
@@ -46,10 +46,10 @@
           <td>{{ d.tujuan }}</td>
           {% if d.status =='Pinjam' %}
             <!-- <td style="color: darkred;"><strong>{{ d.status }}</strong></td> -->
-            <td title="Dalam Peminjaman">&#128308;</td>
+            <td title="di Pinjam">&#128308;</td>
           {% elif d.status=='Input' %}
             <!-- <td style="color: dimgray;"><strong>{{ d.status }}</strong></td> -->
-            <td title="Status Input">&#9711;</td>
+            <td title="Proses Input">&#9711;</td>
           {% elif d.status=='dikembalikan' %}
             <!-- <td style="color: green;"><strong>Dikembalikan</strong></td> -->
             <td title="Sudah dikembalikan">&#128309;</td>
