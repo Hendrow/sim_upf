@@ -125,14 +125,16 @@ class Log_pinjam(db.Model):
     __tablename__ = 'log_pinjam'
     id = db.Column(db.Integer, primary_key=True)
     note = db.Column(db.String(50), nullable=True)
+    beban_kerja = db.Column(db.Integer, nullable=True)
     id_alat = db.Column(db.Integer, db.ForeignKey('alat.id'), nullable=False)
     id_peminjam = db.Column(db.Integer, db.ForeignKey('peminjam_alat.id'), nullable=False)
     
 
-    def __init__(self, id_alat, id_peminjam, note):
+    def __init__(self, id_alat, id_peminjam, note, beban_kerja):
         self.id_alat = id_alat
         self.id_peminjam = id_peminjam
         self.note = note
+        self.beban_kerja = beban_kerja
 
     def __repr__(self):
         return f'alat: {self.id}, peminjam: {self.id_peminjam}'
