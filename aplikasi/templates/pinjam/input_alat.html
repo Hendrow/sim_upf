@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
+                <label for="tanggal" class="col-sm-2 col-form-label">Tanggal Peminjaman</label>
                 <div class="col-sm-6">
                     <input type="text" readonly class="form-control" id="tanggal" value="{{ data.query.tanggal.strftime('%d-%m-%Y') }}">
                 </div>
@@ -60,7 +60,7 @@
 
     <div class="row">        
         <div class="col-sm-12">            
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Tambahkan Alat</button>
+            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">Tambahkan Alat</button>
 
             <!-- Modal Add Kode Alat-->            
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -118,6 +118,7 @@
                     <th>Nama Alat</th>
                     <th>Merk Alat</th>
                     <th>Serial Number</th>
+                    <th>Beban Kerja (Alat)</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -129,8 +130,21 @@
                         <td>{{ i.alat.nm_alat }}</td>
                         <td>{{ i.alat.merk }}</td>
                         <td>{{ i.alat.no_seri }}</td>
-                        <td><a href="#" data-toggle="modal" data-target="#hapus{{ i.id }}" title="Hapus"><span data-feather="trash-2"></span></a></td>
+                        <th>
+                            {% if i.beban_kerja=="" or i.beban_kerja==None %}
+                                <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#beban{{ i.id }}"><span data-feather="edit"></span> Update</button>
+                                <!-- <a href="#" data-toggle="modal" data-target="#beban{{ i.id }}" title="Input Beban Kerja Alat"><span data-feather="plus"></span></a> -->
+                            {% else %}
+                                {{ i.beban_kerja }}
+                            {% endif %}                           
+                            
+                        </th>
+                        <td>
+                            <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#hapus{{ i.id }}" title="Hapus"><span data-feather="trash-2"></span> Hapus</button>
+                            <!-- <a href="#" data-toggle="modal" data-target="#hapus{{ i.id }}" title="Hapus"><span data-feather="trash-2"></span></a> -->
+                        </td>
                     </tr>
+
                     <!-- Modal Konfirmasi Hapus-->
                     <div class="modal fade" id="hapus{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -153,7 +167,47 @@
                         </div>
                         </div>
                     </div>
-                    <!-- end modal -->
+                    <!-- end modal hapus -->
+
+                    <!-- Modal Update Beban Kerja-->
+                    <div class="modal fade" id="beban{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Beban Kerja Alat</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <form action="{{ url_for('pinjam.beban_kerja', id=i.id)}}" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-6 col-form-label">Nama Alat</label>
+                                        <input type="text" class="form-control" value="{{ i.alat.nm_alat }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-6 col-form-label">Nomor seri</label>
+                                        <input type="text" class="form-control" value="{{ i.alat.no_seri }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-6 col-form-label">Pemakaian</label>
+                                        <input type="text" class="form-control" value="{{ i.peminjam.tujuan }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-6 col-form-label">Beban Kerja Alat</label>
+                                        <input type="text" class="form-control" name="beban">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">                            
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                </form>                
+                                </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- end modal beban -->
+
                 {% endfor %}  
             </tbody>
         </table>
@@ -162,7 +216,7 @@
 
     <!-- tombol simpan untuk menyelesaikan proses -->
     {% if detail %}
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#simpanModal" >Simpan Proses</button>
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#simpanModal" >Simpan Proses</button>
     {% endif %}
     <!-- Modal Add Kode Alat-->            
     <div class="modal fade" id="simpanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

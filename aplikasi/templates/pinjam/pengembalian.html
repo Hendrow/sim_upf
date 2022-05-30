@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
+                <label for="tanggal" class="col-sm-2 col-form-label">Tanggal Peminjaman</label>
                 <div class="col-sm-6">
                     <input type="text" readonly class="form-control" id="tanggal" value="{{ peminjam.tanggal.strftime('%d-%m-%Y') }}">
                 </div>
@@ -57,8 +57,8 @@
                     <th>Nama Alat</th>
                     <th>Merk Alat</th>
                     <th>Serial Number</th>
+                    <th>Beban Kerja (Alat)</th>
                     <th>Catatan</th>
-                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,8 +69,14 @@
                         <td>{{ i.alat.nm_alat }}</td>
                         <td>{{ i.alat.merk }}</td>
                         <td>{{ i.alat.no_seri }}</td>
-                        <td>{{ i.note }}</td>
-                        <td><a href="#" data-toggle="modal" data-target="#note{{ i.id }}" title="Catatan"><span data-feather="plus"></span> Note</a></td>
+                        <td>{{ i.beban_kerja }}</td>
+                        <td>
+                            {% if i.note=="" or i.note==Null%}
+                                <button class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#note{{ i.id }}" title="Catatan"><span data-feather="plus"></span> Note</button>
+                            {% else %}
+                                {{ i.note }}
+                            {% endif %}
+                        </td>
                     </tr>
                     <!-- Modal Note-->
                     <div class="modal fade" id="note{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -101,7 +107,7 @@
                             <div class="modal-footer">                            
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            </form>                 
+                            </form>                
                             </div>
                         </div>
                         </div>
@@ -113,7 +119,7 @@
         </table>
     </div>        
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSelesai">Selesai</button>
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSelesai">Selesai</button>
     <!-- Modal Konfirmasi Hapus-->
     <div class="modal fade" id="modalSelesai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
