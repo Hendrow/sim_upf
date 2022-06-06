@@ -11,12 +11,13 @@ class Alat(db.Model):
     merk = db.Column(db.String(30), nullable=False)
     tipe = db.Column(db.String(30), nullable=False)
     no_seri = db.Column(db.String(25), nullable=False, unique=True)
+    tgl_kalibrasi = db.Column(db.Date, nullable=True)
     aksesoris = db.Column(db.String(100))
     th_pengadaan = db.Column(db.Integer)
     ket = db.Column(db.String(15))
     log_pinjam = db.relationship('Log_pinjam', backref='alat', lazy=True)
 
-    def __init__(self, kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket):
+    def __init__(self, kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket, tgl_kalibrasi):
         self.kd_alat = kd_alat
         self.nm_alat = nm_alat
         self.merk = merk
@@ -25,6 +26,7 @@ class Alat(db.Model):
         self.aksesoris = aksesoris
         self.th_pengadaan = th_pengadaan
         self.ket = ket
+        self.tgl_kalibrasi = tgl_kalibrasi
 
     def __repr__(self):
         return f"{self.nm_alat}"
