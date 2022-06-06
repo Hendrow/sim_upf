@@ -17,7 +17,8 @@ def dashboard():
         data = {
             'title': 'Dashboard',
             'header' : 'Dashboard',
-            'nama' : session.get('nm_lengkap')
+            'nama' : session.get('nm_lengkap'),
+            'level': session.get('level')
         }
         return render_template('dashboard.html', data=data)
 
