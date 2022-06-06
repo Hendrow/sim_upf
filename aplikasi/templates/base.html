@@ -83,7 +83,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('fasyankes.index') }}">
-              <span data-feather="users"></span>
+              <span data-feather="package"></span>
               Fasyankes
             </a>
           </li>
@@ -105,7 +105,28 @@
               Peminjaman alat
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="activity"></span>
+              Beban Kerja Alat
+            </a>
+          </li>
         </ul>
+
+        {% if data.level=='admin' %}
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Administrator</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user.reg') }}">
+              <span data-feather="user-plus"></span>
+              Manajamen User
+            </a>
+          </li>
+        </ul>
+        {% endif %}
       </div>
     </nav>
 
