@@ -29,3 +29,13 @@ Aplikasi Simupf
 - menambahkan route simpan proses dan hapus alat pada route pinjam
 - menambahkan tombol simpan proses dan hapus alat pada halaman input pinjam
 - membuat status pinjam menjadi input, pinjam, dan kembali
+
+30/05/2022
+- Menambahkan field beban kerja alat pada log_pinjam
+- Menambahkan tombol update beban kerja alat saat input daftar peminjaman alat
+
+06/06/2022
+- Menambahkan manajemen user pada menu dashboard
+- Penambahan field tgl_kalibrasi pada table alat
+- menampilkan field tgl_kalibrasi pada daftar alat, dan menu peminjaman alat
+
