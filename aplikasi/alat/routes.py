@@ -46,11 +46,12 @@ def add():
             merk = form.merk.data
             tipe = form.tipe.data
             no_seri = form.no_seri.data
+            tgl_kalibrasi = form.tgl_kalibrasi.data
             aksesoris = form.aksesoris.data
             th_pengadaan = form.th_pengadaan.data
             ket = form.ket.data
 
-            add_alat = Alat(kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket)
+            add_alat = Alat(kd_alat, nm_alat, merk, tipe, no_seri, aksesoris, th_pengadaan, ket, tgl_kalibrasi)
             db.session.add(add_alat)
 
             aksi = f"input alat:{kd_alat}"
@@ -83,6 +84,7 @@ def edit(id):
                 alat.merk = form.merk.data
                 alat.tipe = form.tipe.data
                 alat.no_seri = form.no_seri.data
+                alat.tgl_kalibrasi = form.tgl_kalibrasi.data
                 alat.aksesoris = form.aksesoris.data
                 alat.th_pengadaan = form.th_pengadaan.data
                 alat.ket = form.ket.data
@@ -100,6 +102,7 @@ def edit(id):
             form.merk.data = alat.merk
             form.tipe.data = alat.tipe
             form.no_seri.data = alat.no_seri
+            form.tgl_kalibrasi.data = alat.tgl_kalibrasi
             form.aksesoris.data = alat.aksesoris
             form.th_pengadaan.data = alat.th_pengadaan
             form.ket.data = alat.ket

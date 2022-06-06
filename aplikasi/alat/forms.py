@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
+from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired
 
 
@@ -8,6 +9,7 @@ class Input(FlaskForm):
     merk =  StringField('Merk alat', validators=[DataRequired()])
     tipe =  StringField('Tipe alat', validators=[DataRequired()])
     no_seri =  StringField('No Seri', validators=[DataRequired()])
+    tgl_kalibrasi = DateField('Tgl. Kalibrasi')  
     aksesoris =  StringField('Aksesoris alat')
     th_pengadaan =  StringField('Tahun pengadaan')
     ket =  StringField('Keterangan')
@@ -19,6 +21,7 @@ class Edit(FlaskForm):
     merk =  StringField('Merk alat', validators=[DataRequired()])
     tipe =  StringField('Tipe alat', validators=[DataRequired()])
     no_seri =  StringField('No Seri', validators=[DataRequired()])
+    tgl_kalibrasi = DateField('Tgl. Kalibrasi')
     aksesoris =  StringField('Aksesoris alat')
     th_pengadaan =  StringField('Tahun pengadaan')
     ket =  StringField('Keterangan')
