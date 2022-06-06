@@ -118,6 +118,7 @@
                     <th>Nama Alat</th>
                     <th>Merk Alat</th>
                     <th>Serial Number</th>
+                    <th>Tgl. Kalibrasi</th>
                     <th>Beban Kerja (Alat)</th>
                     <th>Aksi</th>
                 </tr>
@@ -130,6 +131,7 @@
                         <td>{{ i.alat.nm_alat }}</td>
                         <td>{{ i.alat.merk }}</td>
                         <td>{{ i.alat.no_seri }}</td>
+                        <td>{{ i.alat.tgl_kalibrasi }}</td>
                         <th>
                             {% if i.beban_kerja=="" or i.beban_kerja==None %}
                                 <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#beban{{ i.id }}"><span data-feather="edit"></span> Update</button>
